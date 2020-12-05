@@ -15,7 +15,17 @@ namespace Game
         public Dictionary<int, Person> people;
 
         //General
+        [NonSerialized]
         public int nextPersonId = 0;
+
+        [NonSerialized]
+        public HashSet<Job>[] availableJobs;
+
+        [NonSerialized]
+        public HashSet<Residence>[] availableResidences;
+
+        [NonSerialized]
+        public HashSet<Structure>[] forSaleStructures;
 
         //Events
         public Action<Structure> OnAddStructure;
@@ -24,6 +34,27 @@ namespace Game
         public void Awake()
         {
             grid = new Structure[gridWidth, gridHeight];
+
+            availableJobs = new HashSet<Job>[(int)Education.Count];
+
+            for(int i = 0; i < (int)Education.Count; ++i)
+            {
+                availableJobs[i] = new HashSet<Job>();
+            }
+
+            availableResidences = new HashSet<Residence>[(int)SocialClass.Count];
+
+            for(int i = 0; i < (int)Education.Count; ++i)
+            {
+                availableResidences[i] = new HashSet<Residence>();
+            }
+
+            forSaleStructures = new HashSet<Structure>[(int)SocialClass.Count];
+
+            for(int i = 0; i < (int)Education.Count; ++i)
+            {
+                forSaleStructures[i] = new HashSet<Structure>();
+            }
         }
 
         //Structures
@@ -40,11 +71,14 @@ namespace Game
 
         public void RemoveStructure(Structure structure)
         {
-            grid[structure.position.x, structure.position.y] = null;
+            if(structure.canBeDestroyed)
+            {
+                grid[structure.position.x, structure.position.y] = null;
 
-            OnRemoveStructure?.Invoke(structure);
+                OnRemoveStructure?.Invoke(structure);
 
-            Destroy(structure.gameObject);
+                Destroy(structure.gameObject);
+            }
         }
 
         //People
@@ -54,6 +88,9 @@ namespace Game
 
         public void RemovePerson(Person person)
         {
+            if(person.canDie)
+            {
+            }
         }
     }
 }

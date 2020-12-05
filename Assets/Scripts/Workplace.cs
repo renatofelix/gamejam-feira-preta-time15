@@ -1,20 +1,45 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
+    public enum Efficiency
+    {
+        Low,
+        Medium,
+        High,
+        Over,
+        Count
+    }
+
     public class Workplace : Structure
     {
+        public SocialClass targetConsumer;
+        
         public int effectiveArea;
-        public Work[] work;
+
+        public List<Job> work;
+
+        [NonSerialized]
+        public Efficiency efficiency;//Depends on happiness and other status of all workers and if the target
+
+        [NonSerialized]
+        public Dictionary<string, Job> workBranches;
 
         public override void Awake()
         {
             base.Awake();
 
-            for(int i = 0; i < work.Length; ++i)
+            for(int i = 0; i < work.Count; ++i)
             {
-                work[i].workers = new List<Person>(work[i].maxWorkers);
+                Job job = work[i];
+
+                job.workers = new List<Person>(job.maxWorkers);
+
+                workBranches.Add(job.name, job);
+
+                city.availableJobs[(int)socialClass].Add(job);
             }
         }
 
@@ -25,12 +50,23 @@ namespace Game
             base.Destroy();
         }
 
-        public void AddWorker(Person person)
+        public void Hire(Person person)
+        {
+            if(person.job != null)
+            {
+                person.job.workplace.Fire(person);
+            }
+        }
+
+        public void Fire(Person person)
         {
         }
 
-        public void RemoveWorker(Person person)
+        public override void Tick()
         {
+
+
+            base.Tick();
         }
     }
 }

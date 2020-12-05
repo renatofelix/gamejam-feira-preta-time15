@@ -1,12 +1,32 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
+    public class Modifier
+    {
+        public string name;
+        public string description;
+    }
+
+    public class Modifiers
+    {
+        Dictionary<string, Modifier> data;
+
+        public void AddModifier(Modifier modifier)
+        {
+        }
+
+        public void RemoveModifier(Modifier modifier)
+        {
+        }
+    }
+
     public enum LifeStage
     {
         Infant,
-        Child,
+        Youth,
         Adult,
         Senior,
         Count
@@ -45,19 +65,11 @@ namespace Game
 
     public enum SocialClass
     {
+        Poor,
         Working,
         LowerMiddle,
         UpperMidle,
-        LowerUpper,
         Upper,
-        Count
-    }
-
-    public enum Status
-    {
-        Healty,
-        Sick,
-        Pregnant,
         Count
     }
 
@@ -73,13 +85,52 @@ namespace Game
         public Education education;
         public SocialClass socialClass;
 
+        public bool canDie;
+
+        [NonSerialized]
+        public List<Person> parents = new List<Person>();
+
+        [NonSerialized]
+        public List<Person> children = new List<Person>();
+
+        [NonSerialized]
+        public Person relationshipPartner;
+
+        [NonSerialized]
+        public int relationshipElapsedTicks;
+
+        [NonSerialized]
+        public SocialClass minimumSocialClass;//Used in case the person is unemployed but is very rich
+
+        [NonSerialized]
         public Job job;
+
+        [NonSerialized]
+        public bool isLookingForBetterJob;
+
+        [NonSerialized]
+        public Residence residence;
+
+        [NonSerialized]
+        public bool isLookingForBetterPlace;
+
+        [NonSerialized]
         public List<Structure> propertiesOwned;
 
-        public Status status;
-        public int statusProgress;
+        [NonSerialized]
+        public bool isSick;
         
+        [NonSerialized]
         public int happiness;
+
+        public void Born()
+        {
+        }
+
+        public void Death()
+        {
+            // for(int i =
+        }
 
         public void ChangeEducation(Education newEducation)
         {
@@ -91,24 +142,73 @@ namespace Game
             socialClass = newSocialClass;
         }
 
+        public SocialClass GetSocialClass()
+        {
+            return (SocialClass)Mathf.Max((int)minimumSocialClass, (int)socialClass);
+        }
+
         public void ChangeJob(Job newJob)
         {
             job = newJob;
         }
 
-        public void OwnProperty(Structure structure)
+        public void AcquireProperty(Structure structure)
         {
             propertiesOwned.Add(structure);
+
+            if((int)structure.socialClass  > (int)minimumSocialClass)
+            {
+                minimumSocialClass = structure.socialClass;
+            }
         }
 
-        public void ChangeStatus(Status newStatus)
+        public void LoseProperty(Structure structure)
         {
-            status = newStatus;
+            structure.BecomeForSale();
+
+            propertiesOwned.Remove(structure);
+
+            SocialClass newSocialClass = SocialClass.Poor;
+
+            for(int i = 0; i < propertiesOwned.Count; ++i)
+            {
+                Structure ownedStructure = propertiesOwned[i];
+
+                if(ownedStructure.socialClass >= newSocialClass)
+                {
+                    newSocialClass = ownedStructure.socialClass;
+                }
+            }
+
+            minimumSocialClass = newSocialClass;
         }
 
-        public void UpdateStatusProgress(int amount)
+        public void ChangeSicknessState(bool isSickState)
         {
-            statusProgress += amount;
+            isSick = isSickState;
+
+            if(isSick)
+            {
+                happiness -= 20;
+            }
+            else
+            {
+                happiness += 20;
+            }
+        }
+
+        public void RelationshipPartnerChange(Person person)
+        {
+            relationshipPartner = person;
+
+            relationshipElapsedTicks = 0;
+        }
+
+        public int CalculateHappniess(Modifiers modifiers)
+        {
+            int total = happiness;
+
+            return total;
         }
     }
 
@@ -125,21 +225,17 @@ namespace Game
     public class Job
     {
         public string name;
-        public Workplace work;
         public Education educationRequired;
-        public SocialClass wealthProvided;
+        public SocialClass socialClassProvided;
         public Quality quality;
-    }
 
-    [Serializable]
-    public class Work
-    {
-        public Workplace workplace;
-        public Job job;
         public int maxWorkers;
 
         [NonSerialized]
         public List<Person> workers;
+
+        [NonSerialized]
+        public Workplace workplace;
 
         public void AddWorker(Person person)
         {
