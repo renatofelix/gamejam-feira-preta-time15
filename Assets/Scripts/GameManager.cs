@@ -11,6 +11,11 @@ namespace Game
     {
         public static GameManager instance;
 
+        //Game
+        public int budget;
+        public int administrationPoints;
+
+        //Events
         public Action<GameObject> onDestroyEvent;
 
         public void Awake()
