@@ -110,6 +110,7 @@ namespace Game
         }
         public void SetCurrentTile(Structure structure)
         {
+            selectMode = true;
             currentTile = structure;
             OnSelectTile?.Invoke(currentTile);
             //selectDebug.text = currentTile.transform.name + " X [" + (currentTile.transform.position.x /2)+ "] Y [" + (currentTile.transform.position.z / 2)+"]" ;
@@ -169,7 +170,10 @@ namespace Game
                 MovimentGhost();
             }
 
+            //change gamemode
             GameModeManager();
+
+
             currentMouseLocation.text = " X [" + CameraInteraction.GridMousePostion.x + "] Y [" + CameraInteraction.GridMousePostion.y + "]";
         }
 
@@ -188,7 +192,8 @@ namespace Game
             else if (Input.GetKeyDown(KeyCode.Escape) && selectMode)
             {
                 selectMode = false;
-                OnDeselectTile.Invoke(currentTile);
+                OnDeselectTile?.Invoke(currentTile);
+                currentTile = null;
             }
         }
 

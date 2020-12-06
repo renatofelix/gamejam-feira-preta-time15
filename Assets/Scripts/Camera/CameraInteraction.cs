@@ -10,24 +10,26 @@ namespace Game
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0) && !GridManager.Instance.isContructMode())
+            
+            if(Input.GetMouseButtonDown(0) && GridManager.Instance.saleMode)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit; 
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    GridManager.Instance.SetCurrentTile(hit.transform.GetComponent<Structure>()); 
-                }
-            }
-            else if(Input.GetMouseButtonDown(0) && GridManager.Instance.saleMode)
-            {
+                Debug.Log("cliquei para destruir");
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit))
                 {
                     GridManager.Instance.SaleStructure(hit.transform.GetComponent<Structure>());
+                }
+            }
+            else if (Input.GetMouseButtonDown(0) && !GridManager.Instance.isContructMode())
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    GridManager.Instance.SetCurrentTile(hit.transform.GetComponent<Structure>());
                 }
             }
             else
