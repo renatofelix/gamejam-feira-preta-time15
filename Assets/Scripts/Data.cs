@@ -149,6 +149,8 @@ namespace Game
             }
 
             RemoveRelationshipParter();
+
+            foreach(
         }
 
         public void ChangeEducation(Education newEducation)
