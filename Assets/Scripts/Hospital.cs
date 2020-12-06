@@ -9,10 +9,33 @@ namespace Game
     {
         public int maxPatients;
 
-        public float[] efficiencyKillChance = new float[(int)Efficiency.Count];
+        public float[] efficiencyKillChance = 
+        {
+            50f,
+            30f,
+            15f,
+            5f,
+        };
 
         [NonSerialized]
         public HashSet<Person> patients = new HashSet<Person>();
+
+        public override void Awake()
+        {
+            city.availableHospitals.Add(this);
+
+            base.Awake();
+        }
+
+        public override void Destroy()
+        {
+            foreach(Person person in patients)
+            {
+                DischargePatient(person);
+            }
+
+            base.Destroy();
+        }
 
         public override void Tick()
         {

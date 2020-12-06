@@ -28,6 +28,9 @@ namespace Game
         public HashSet<Structure>[] forSaleStructures;
 
         [NonSerialized]
+        public HashSet<School>[] availableSchools;
+
+        [NonSerialized]
         public HashSet<Hospital> availableHospitals;
 
         //Events
@@ -59,13 +62,20 @@ namespace Game
                 forSaleStructures[i] = new HashSet<Structure>();
             }
 
+            availableSchools = new HashSet<School>[(int)Education.Count];
+
+            for(int i = 0; i < (int)Education.Count; ++i)
+            {
+                availableSchools[i] = new HashSet<School>();
+            }
+
             availableHospitals = new HashSet<Hospital>();
         }
 
         //Structures
-        public void AddStructure(Structure structurePrefab, Vector2Int position)
+        public void AddStructure(Structure structurePrefab, Vector2Int position, float positionMultiplier = 2.0f)
         {
-            Structure structure = Instantiate(structurePrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
+            Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), Quaternion.identity);
 
             grid[position.x, position.y] = structure;
 

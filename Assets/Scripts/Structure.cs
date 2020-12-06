@@ -13,12 +13,21 @@ namespace Game
     {
         public string displayName;
         public string description;
-        public SocialClass socialClass;
         public int cost;
         public int upkeepCost;
         public Ownership ownership;
 
         public bool canBeDestroyed;
+
+        public SocialClass socialClass;
+        public float[] socialClassValueTable = 
+        {
+            0.3f,
+            0.7f,
+            1.0f,
+            1.2f,
+            2.0f,
+        };
 
         [NonSerialized]
         public int revenue = 0;
@@ -70,6 +79,11 @@ namespace Game
         public bool IsForSale()
         {
             return city.forSaleStructures[(int)socialClass].Contains(this);
+        }
+
+        public float GetSocialClassValue()
+        {
+            return socialClassValueTable[(int)socialClass];
         }
     }
 }

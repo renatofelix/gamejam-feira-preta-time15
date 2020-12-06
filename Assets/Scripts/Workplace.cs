@@ -15,7 +15,7 @@ namespace Game
 
     public class Workplace : Structure
     {
-        public static float[] efficiencyMultiplierTable =
+        public static float[] efficiencyTable =
         {
             0.2f,
             0.5f,
@@ -77,6 +77,8 @@ namespace Game
             person.happiness += (int)(10*(float)socialClass*1.5f);
             person.isLookingForBetterJob = false;
 
+            person.ChangeSocialClass(job.socialClassProvided);
+
             if(job.maxWorkers - job.workers.Count <= 0)
             {
                 city.availableJobs[(int)job.educationRequired].Remove(job);
@@ -92,6 +94,8 @@ namespace Game
             person.job = null;
             person.happiness -= (int)(10*(float)socialClass*1.5f);
             person.isLookingForBetterJob = false;
+
+            person.ChangeSocialClass(SocialClass.Poor);
 
             if(!city.availableJobs[(int)job.educationRequired].Contains(job))
             {
@@ -112,7 +116,7 @@ namespace Game
 
         public float GetEffciencyValue()
         {
-            return efficiencyMultiplierTable[(int)efficiency];
+            return efficiencyTable[(int)efficiency];
         }
     }
 }
