@@ -109,7 +109,7 @@ namespace Game
             {
                 for(int j = -newRangeAmount; j < newRangeAmount; ++j)
                 {
-                    Vector2Int tilePosition = new Vector2Int(position.x + i, position.y + j);
+                    Vector2Int tilePosition = new Vector2Int(position.y + i, position.x + j);
 
                     if(tilePosition.x < 0 || tilePosition.x >= city.gridWidth || tilePosition.y < 0 || tilePosition.y >= city.gridHeight)
                     {

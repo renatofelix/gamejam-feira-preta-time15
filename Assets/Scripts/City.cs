@@ -92,7 +92,7 @@ namespace Game
         {
             Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), rotation, cityTransform);
 
-            grid[position.x, position.y].structure = structure;
+            grid[gridHeight - position.y, position.x].structure = structure;
 
             structure.position = position;
 
@@ -108,7 +108,7 @@ namespace Game
         {
             if(structure.canBeDestroyed)
             {
-                grid[structure.position.x, structure.position.y].structure = null;
+                grid[gridHeight - structure.position.y, structure.position.x].structure = null;
 
                 OnRemoveStructure?.Invoke(structure);
 
@@ -118,12 +118,12 @@ namespace Game
 
         public ref Tile GetTile(Vector2Int position)
         {
-            return ref grid[position.x, position.y];
+            return ref grid[position.y, position.x];
         }
 
         public Structure GetStructure(Vector2Int position)
         {
-            return grid[position.x, position.y].structure;
+            return grid[gridHeight - position.y, position.x].structure;
         }
 
         //People
