@@ -23,9 +23,9 @@ namespace Game
 
         public override void Awake()
         {
-            city.availableSchools[(int)educationRequired].Add(this);
-
             base.Awake();
+
+            city.availableSchools[(int)educationRequired].Add(this);
         }
 
         public override void Destroy()

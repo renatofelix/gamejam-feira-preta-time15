@@ -11,6 +11,9 @@ namespace Game
         [NonSerialized]
         public HashSet<Person> residents = new HashSet<Person>();
 
+        [NonSerialized]
+        public int bonusHappiness = 0;
+
         public override void Awake()
         {
             city.availableResidences[(int)socialClass].Add(this);
@@ -50,7 +53,7 @@ namespace Game
             {
                 if(person.GetSocialClass() > newSocialClass)
                 {
-                    RecalculateResidentHappiness(person, socialClass, newSocialClass);
+                    RecalculateResidentHappinessBasedOnSocialClass(person, socialClass, newSocialClass);
 
                     person.isLookingForBetterPlace = true;
                 }
@@ -76,7 +79,7 @@ namespace Game
                 }
                 else
                 {
-                    RecalculateResidentHappiness(person, socialClass, newSocialClass);
+                    RecalculateResidentHappinessBasedOnSocialClass(person, socialClass, newSocialClass);
 
                     person.isLookingForBetterPlace = false;
                 }
@@ -101,6 +104,17 @@ namespace Game
 
             person.residence = this;
             person.happiness += (int)(10*GetSocialClassValue());
+
+            foreach(Person resident in residents)
+            {
+                ref Tile tile = ref city.GetTile(position);
+
+                foreach(int coverage in tile.coverages)
+                {
+                    resident.happiness += coverage;
+                }
+            }
+
             person.isLookingForBetterPlace = false;
 
             if(maxResidents - residents.Count <= 0)
@@ -115,6 +129,17 @@ namespace Game
 
             person.residence = null;
             person.happiness -= (int)(10*GetSocialClassValue());
+
+            foreach(Person resident in residents)
+            {
+                ref Tile tile = ref city.GetTile(position);
+
+                foreach(int coverage in tile.coverages)
+                {
+                    resident.happiness -= coverage;
+                }
+            }
+
             person.isLookingForBetterPlace = false;
 
             if(!city.availableResidences[(int)socialClass].Contains(this))
@@ -123,10 +148,21 @@ namespace Game
             }
         }
 
-        public void RecalculateResidentHappiness(Person resident, SocialClass oldSocialClass, SocialClass newSocialClass)
+        public void RecalculateResidentHappinessBasedOnSocialClass(Person resident, SocialClass oldSocialClass, SocialClass newSocialClass)
         {
             resident.happiness -= (int)(10*socialClassValueTable[(int)oldSocialClass]);
             resident.happiness += (int)(10*socialClassValueTable[(int)newSocialClass]);
+        }
+
+        public override void OnChangeCoverage(Coverage coverage, int from, int to)
+        {
+            base.OnChangeCoverage(coverage, from, to);
+
+            foreach(Person resident in residents)
+            {
+                resident.happiness -= from;
+                resident.happiness += to;
+            }
         }
     }
 }

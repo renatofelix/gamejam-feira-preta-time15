@@ -47,6 +47,15 @@ namespace Game
         {
             grid = new Tile[gridWidth, gridHeight];
 
+            for(int i = 0; i < gridWidth; ++i)
+            {
+                for(int j = 0; j < gridHeight; ++j)
+                {
+                    grid[i, j].structure = null;
+                    grid[i, j].coverages = new int[(int)Coverage.Count];
+                }
+            }
+
             availableJobs = new HashSet<Job>[(int)Education.Count];
 
             for(int i = 0; i < (int)Education.Count; ++i)

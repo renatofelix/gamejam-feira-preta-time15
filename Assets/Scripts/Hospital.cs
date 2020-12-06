@@ -7,6 +7,7 @@ namespace Game
 {
     public class Hospital : Workplace
     {
+        [Header("Hospital")]
         public int maxPatients;
 
         public float[] efficiencyKillChance = 
@@ -22,9 +23,9 @@ namespace Game
 
         public override void Awake()
         {
-            city.availableHospitals.Add(this);
-
             base.Awake();
+
+            city.availableHospitals.Add(this);
         }
 
         public override void Destroy()

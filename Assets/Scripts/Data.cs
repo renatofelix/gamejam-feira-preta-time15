@@ -5,13 +5,32 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    public enum Coverage
+    {
+        None,
+        Transport,
+        Security,
+        Emergency,
+        Count,
+    }
+
     [Serializable]
     public struct Tile
     {
         public Structure structure;
-        public int publicTransportCoverage;
-        public int policeCoverage;
-        public int emergencyCoverage;
+        public int[] coverages;
+
+        public void ChangeCoverage(Coverage coverage, int amount)
+        {
+            int originalCoverage = coverages[(int)coverage];
+
+            coverages[(int)coverage] += amount;
+
+            if(structure != null)
+            {
+                structure.OnChangeCoverage(coverage, originalCoverage,  coverages[(int)coverage]);
+            }
+        }
     }
 
     public class Modifier

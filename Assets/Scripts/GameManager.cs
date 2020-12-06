@@ -42,12 +42,16 @@ namespace Game
         public int budget;
         public int politicalPoints;
 
+        [Header("Table Set 1")]
         public float[] findRelationshipChance = new float[(int)SocialClass.Count];
-        public float[] findSchoolChance = new float[(int)SocialClass.Count];
-        public float[] findHospitalChance = new float[(int)SocialClass.Count];
         public float[] procriateChance = new float[(int)SocialClass.Count];
         public float[] sicknessChance = new float[(int)SocialClass.Count];
         public float[] untreatedSicknessKillChance = new float[(int)SocialClass.Count];
+
+        [Header("Table Set 2")]
+        public float[] findSchoolChance = new float[(int)SocialClass.Count];
+        public float[] findHospitalChance = new float[(int)SocialClass.Count];
+        public float[] arrestChance = new float[(int)SocialClass.Count];
 
         [NonSerialized]
         public City city;
