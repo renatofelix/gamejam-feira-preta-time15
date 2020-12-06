@@ -7,7 +7,7 @@ namespace Game
     public class City : MonoBehaviour
     {
         //Data
-        public Structure[,] grid;
+        public Tile[,] grid;
         public int gridWidth;
         public int gridHeight;
 
@@ -42,7 +42,7 @@ namespace Game
 
         public void Awake()
         {
-            grid = new Structure[gridWidth, gridHeight];
+            grid = new Tile[gridWidth, gridHeight];
 
             availableJobs = new HashSet<Job>[(int)Education.Count];
 
@@ -76,27 +76,42 @@ namespace Game
         }
 
         //Structures
-        public void AddStructure(Structure structurePrefab, Vector2Int position)
+        public void AddStructure(Structure structurePrefab, Vector2Int position, Quaternion rotation)
         {
-            Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), Quaternion.identity, cityTransform);
+            Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), rotation, cityTransform);
 
-            grid[position.x, position.y] = structure;
+            grid[position.x, position.y].structure = structure;
 
             structure.position = position;
 
             OnAddStructure?.Invoke(structure);
         }
 
+        public void AddStructure(Structure structurePrefab, Vector2Int position)
+        {
+            AddStructure(structurePrefab, position, Quaternion.identity);
+        }
+
         public void RemoveStructure(Structure structure)
         {
             if(structure.canBeDestroyed)
             {
-                grid[structure.position.x, structure.position.y] = null;
+                grid[structure.position.x, structure.position.y].structure = null;
 
                 OnRemoveStructure?.Invoke(structure);
 
                 Destroy(structure.gameObject);
             }
+        }
+
+        public ref Tile GetTile(Vector2Int position)
+        {
+            return ref grid[position.x, position.y];
+        }
+
+        public Structure GetStructure(Vector2Int position)
+        {
+            return grid[position.x, position.y].structure;
         }
 
         //People

@@ -248,6 +248,14 @@ namespace Game
             }
         }
 
+        public void SearchForSchool(Person person)
+        {
+            if(person.school = null)
+            {
+                // if(
+            }
+        }
+
         public void SearchForHospital(Person person)
         {
             if(person.hospital == null)
