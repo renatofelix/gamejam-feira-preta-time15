@@ -23,11 +23,11 @@ namespace Game
             1.5f,
         };
 
-        [Header("Workplace")]
-        public SocialClass targetConsumer;
+        // public SocialClass targetConsumer;
         
         // public int effectiveArea;
 
+        [Header("Workplace")]
         public List<Job> work;
 
         public int[] budgetEffectOnEfficiency =

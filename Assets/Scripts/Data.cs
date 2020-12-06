@@ -33,6 +33,14 @@ namespace Game
         }
     }
 
+    public enum Meter
+    {
+        Low,
+        Medium,
+        High,
+        Count,
+    }
+
     public class Modifier
     {
         public string name;
@@ -300,6 +308,10 @@ namespace Game
 
         public void AcquireProperty(Structure structure)
         {
+            structure.BecomeProperty();
+
+            structure.owner = this;
+
             propertiesOwned.Add(structure);
 
             if((int)structure.socialClass  > (int)minimumSocialClass)
@@ -312,6 +324,8 @@ namespace Game
         {
             structure.BecomeForSale();
 
+            structure.owner = null;
+            
             propertiesOwned.Remove(structure);
 
             SocialClass newSocialClass = SocialClass.Poor;
