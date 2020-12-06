@@ -117,7 +117,7 @@ namespace Game
         public bool isLookingForBetterPlace = false;
 
         [NonSerialized]
-        public List<Structure> propertiesOwned = new List<Structure>();
+        public School school = null;
 
         [NonSerialized]
         public int eudcationProgress = 0;
@@ -127,7 +127,10 @@ namespace Game
 
         [NonSerialized]
         public int sicknessProgress = 0;
-        
+
+        [NonSerialized]
+        public List<Structure> propertiesOwned = new List<Structure>();
+
         [NonSerialized]
         public int happiness = 0;
 
@@ -147,6 +150,11 @@ namespace Game
             if(residence != null)
             {
                 residence.Evict(this);
+            }
+
+            if(school != null)
+            {
+                school.Dismiss(this);
             }
 
             if(hospital != null)
@@ -186,6 +194,15 @@ namespace Game
         public void ChangeSocialClass(SocialClass newSocialClass)
         {
             socialClass = newSocialClass;
+
+            if((int)newSocialClass > (int)socialClass)
+            {
+                happiness += 10;
+            }
+            else if((int)newSocialClass < (int)socialClass)
+            {
+                happiness -= 10;
+            }
         }
 
         public SocialClass GetSocialClass()
@@ -251,6 +268,11 @@ namespace Game
             sicknessProgress = 0;
 
             happiness += 20;
+        }
+
+        public bool IsSick()
+        {
+            return sicknessProgress > 0;
         }
 
         public void AddRelationshipPartner(Person partner)

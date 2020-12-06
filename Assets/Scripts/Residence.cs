@@ -30,9 +30,9 @@ namespace Game
 
         public override void Tick()
         {
-            //TODO: Upgrade/Downgrade to a higher/lower social class if more than 85% of the tenants are from a higher/lower level
-
             base.Tick();
+            
+            //TODO: Upgrade/Downgrade to a higher/lower social class if more than 85% of the tenants are from a higher/lower level
         }
 
         public void UpdateSocialClass(SocialClass newSocialClass)
@@ -44,46 +44,50 @@ namespace Game
 
             city.availableResidences[(int)newSocialClass].Add(this);
 
-            List<Person> family = new List<Person>();
+            List<Person> evicted = new List<Person>();
 
             foreach(Person person in residents)
             {
-                if(person.GetSocialClass() < newSocialClass)
+                if(person.GetSocialClass() > newSocialClass)
                 {
-                    continue;
-                }
-                else if(person.GetSocialClass() > newSocialClass)
-                {
+                    RecalculateResidentHappiness(person, socialClass, newSocialClass);
+
                     person.isLookingForBetterPlace = true;
                 }
-
-                if(person.lifeStage == LifeStage.Adult || person.lifeStage == LifeStage.Senior)
+                else if(person.GetSocialClass() < newSocialClass)
                 {
-                    family.Add(person);
-
-                    if(person.relationshipPartner != null && person.relationshipPartner.residence == person.residence)
+                    if(person.lifeStage == LifeStage.Adult || person.lifeStage == LifeStage.Senior)
                     {
-                        family.Add(person.relationshipPartner);
-                    }
+                        evicted.Add(person);
 
-                    for(int childIndex = 0; childIndex < person.children.Count; ++childIndex)
-                    {
-                        Person child = person.children[childIndex];
-
-                        if(child.lifeStage == LifeStage.Infant || child.lifeStage == LifeStage.Youth)
+                        if(person.relationshipPartner != null && person.relationshipPartner.residence == person.residence)
                         {
-                            family.Add(child);
+                            evicted.Add(person.relationshipPartner);
+                        }
+
+                        foreach(Person child in person.children)
+                        {
+                            if(child.lifeStage == LifeStage.Infant || child.lifeStage == LifeStage.Youth)
+                            {
+                                evicted.Add(child);
+                            }
                         }
                     }
                 }
-            }
+                else
+                {
+                    RecalculateResidentHappiness(person, socialClass, newSocialClass);
 
-            List<Person> evicted = new List<Person>();
+                    person.isLookingForBetterPlace = false;
+                }
+            }
 
             foreach(Person person in evicted)
             {
                 Evict(person);
             }
+
+            socialClass = newSocialClass;
         }
 
         public void RentFor(Person person)
@@ -96,7 +100,7 @@ namespace Game
             residents.Add(person);
 
             person.residence = this;
-            person.happiness += (int)(10*(float)socialClass*1.5f);
+            person.happiness += (int)(10*GetSocialClassValue());
             person.isLookingForBetterPlace = false;
 
             if(maxResidents - residents.Count <= 0)
@@ -110,13 +114,19 @@ namespace Game
             residents.Remove(person);
 
             person.residence = null;
-            person.happiness -= (int)(10*(float)socialClass*1.5f);
+            person.happiness -= (int)(10*GetSocialClassValue());
             person.isLookingForBetterPlace = false;
 
             if(!city.availableResidences[(int)socialClass].Contains(this))
             {
                 city.availableResidences[(int)socialClass].Add(this);
             }
+        }
+
+        public void RecalculateResidentHappiness(Person resident, SocialClass oldSocialClass, SocialClass newSocialClass)
+        {
+            resident.happiness -= (int)(10*socialClassValueTable[(int)oldSocialClass]);
+            resident.happiness += (int)(10*socialClassValueTable[(int)newSocialClass]);
         }
     }
 }

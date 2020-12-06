@@ -153,21 +153,21 @@ namespace Game
         {
             foreach(Person person in city.people)
             {
-                if(person.sicknessProgress <= 0 && Random.Range(0f, 100f) <= sicknessChance[(int)person.GetSocialClass()])
+                if(!person.IsSick() && Random.Range(0f, 100f) <= sicknessChance[(int)person.GetSocialClass()])
                 {
                     person.AddSickness(Random.Range(800, 1200));
                 }
 
                 if(person.lifeStage == LifeStage.Infant)
                 {
-                    if(person.sicknessProgress > 0)
+                    if(person.IsSick())
                     {
                         SearchForHospital(person);
                     }
                 }
                 else if(person.lifeStage == LifeStage.Youth)
                 {
-                    if(person.sicknessProgress > 0)
+                    if(person.IsSick())
                     {
                         SearchForHospital(person);
                     }
@@ -221,7 +221,7 @@ namespace Game
                         }
                     }
 
-                    if(person.sicknessProgress <= 0)
+                    if(!person.IsSick())
                     {
                         if(person.job == null || (int)person.job.educationRequired < (int)person.education || person.isLookingForBetterJob)
                         {
