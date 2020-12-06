@@ -27,7 +27,12 @@ public class CameraMovement : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         Vector3 forwardMovement = transform.forward * vertical;
         Vector3 rightMovement = transform.right * horizontal;
+
+        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, minValueX, maxValueX), transform.position.y, Mathf.Clamp(transform.position.z, minValueZ, maxValueZ));
+
         transform.position += (forwardMovement + rightMovement).normalized * Time.deltaTime * speedCamera;
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minValueX, maxValueX), transform.position.y, Mathf.Clamp(transform.position.z, minValueZ, maxValueZ));
+
 
         if (Input.GetKey(KeyCode.Space))
         {
