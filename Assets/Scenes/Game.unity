@@ -3785,18 +3785,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 525668651}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickIncreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &525668651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6281,9 +6270,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -122}
-  m_SizeDelta: {x: 460.22577, y: 214.6}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 19.88684, y: -14.699768}
+  m_SizeDelta: {x: 460.22577, y: 162.8}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &845511809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6613,18 +6602,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 867702574}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickIncreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &867702574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7028,18 +7006,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 911864947}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickDecreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &911864947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7688,8 +7655,8 @@ MonoBehaviour:
   nonBinaryIcon: {fileID: 21300000, guid: 6df5263200630bc4abf607058e751f80, type: 3}
   moneyValueLabel: {fileID: 2118653404}
   administrativePointsValueLabel: {fileID: 314555960}
-  approvalValueLabel: {fileID: 0}
-  populationValueLabel: {fileID: 0}
+  approvalValueLabel: {fileID: 1329155972}
+  populationValueLabel: {fileID: 1217556218}
   dateLabel: {fileID: 545631621}
   structureSection: {fileID: 771540141}
   sellOrDestroyButton: {fileID: 1025398694}
@@ -8082,7 +8049,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4f182b9d89804c04d9a5747dd478471d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c0ed838e629ab644ad4b9d2862c55cc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10394,7 +10361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1375543347
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10410,9 +10377,9 @@ RectTransform:
   m_Father: {fileID: 1746193173}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 120, y: -85}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1375543348
@@ -10790,18 +10757,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1436769186}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickDecreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1436769186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10919,18 +10875,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1446874427}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickDecreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1446874427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11944,18 +11889,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1565914794}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickIncreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1565914794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12204,18 +12138,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1679681601}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickDecreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1679681601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12333,18 +12256,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1684005067}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickIncreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1684005067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12596,18 +12508,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1735771209}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickIncreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1735771209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13434,7 +13335,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -275}
+  m_AnchoredPosition: {x: 250, y: -220}
   m_SizeDelta: {x: 460.22577, y: 70.04077}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1860677488
@@ -14577,18 +14478,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2050460146}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 984420539}
-        m_MethodName: OnClickDecreaseBudget
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2050460146
 MonoBehaviour:
   m_ObjectHideFlags: 0

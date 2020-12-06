@@ -180,21 +180,27 @@ namespace Game
 
             for(int i = 0; i < taxValues.Length; ++i)
             {
+                int index = i;
+
                 taxValues[i].text = meterNames[(int)GameManager.instance.tax[i]];
 
                 taxIncreaseButtons[i].onClick.AddListener(delegate()
                 {
-                    if(GameManager.instance.tax[i] < Meter.Count - 1)
+                    if(GameManager.instance.tax[index] < Meter.Count - 1)
                     {
-                        ++GameManager.instance.tax[i];
+                        ++GameManager.instance.tax[index];
+
+                        taxValues[index].text = meterNames[(int)GameManager.instance.tax[index]];
                     }
                 });
 
                 taxDecreaseButtons[i].onClick.AddListener(delegate()
                 {
-                    if(GameManager.instance.tax[i] > 0)
+                    if(GameManager.instance.tax[index] > 0)
                     {
-                        --GameManager.instance.tax[i];
+                        --GameManager.instance.tax[index];
+
+                        taxValues[index].text = meterNames[(int)GameManager.instance.tax[index]];
                     }
                 });
             }
@@ -203,8 +209,10 @@ namespace Game
         public void Update()
         {
             moneyValueLabel.text = GameManager.instance.money.ToString();
-            administrativePointsValueLabel.text = GameManager.instance.politicalPoints.ToString();
-            dateLabel.text = GameManager.months[GameManager.instance.month];
+            // administrativePointsValueLabel.text = GameManager.instance.politicalPoints.ToString();
+            approvalValueLabel.text = GameManager.instance.GetApprovalRating().ToString();
+            populationValueLabel.text = GameManager.instance.city.people.Count.ToString();
+            dateLabel.text = GameManager.months[GameManager.instance.month] + ", " + GameManager.instance.year.ToString();
 
             if(Input.GetMouseButton(1))
             {
@@ -317,6 +325,8 @@ namespace Game
             if(selectedStructure.budget < Budget.Count - 1)
             {
                 ++selectedStructure.budget;
+
+                budgetLabel.text = budgetNames[(int)selectedStructure.budget];
             }
         }
 
@@ -325,6 +335,8 @@ namespace Game
             if(selectedStructure.budget > 0)
             {
                 --selectedStructure.budget;
+
+                budgetLabel.text = budgetNames[(int)selectedStructure.budget];
             }
         }
 
