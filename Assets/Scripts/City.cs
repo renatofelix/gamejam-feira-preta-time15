@@ -25,6 +25,9 @@ namespace Game
         public HashSet<Person> people = new HashSet<Person>();
 
         [NonSerialized]
+        public HashSet<Person>[] singlePeople;
+
+        [NonSerialized]
         public HashSet<Job>[] availableJobs;
 
         [NonSerialized]
@@ -54,6 +57,13 @@ namespace Game
                     grid[i, j].structure = null;
                     grid[i, j].coverages = new int[(int)Coverage.Count];
                 }
+            }
+
+            singlePeople = new HashSet<Person>[(int)SocialClass.Count];
+
+            for(int i = 0; i < (int)SocialClass.Count; ++i)
+            {
+                singlePeople[i] = new HashSet<Person>();
             }
 
             availableJobs = new HashSet<Job>[(int)Education.Count];

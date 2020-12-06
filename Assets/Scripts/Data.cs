@@ -183,6 +183,7 @@ namespace Game
 
         public void Death()
         {
+            
             city.people.Remove(this);
 
             if(job != null)
@@ -205,7 +206,7 @@ namespace Game
                 hospital.DischargePatient(this);
             }
 
-            RemoveRelationshipParter();
+            RemoveRelationshipParter(true);
 
             foreach(Person parent in parents)
             {
@@ -244,6 +245,8 @@ namespace Game
             else if(lifeStage == LifeStage.Adult && age >= 60)
             {
                 ++lifeStage;
+
+                city.singlePeople[(int)socialClass].Add(this);
             }
             else if(lifeStage == LifeStage.Senior)
             {
@@ -343,6 +346,18 @@ namespace Game
             minimumSocialClass = newSocialClass;
         }
 
+        public void HaveChild()
+        {
+            Person child = new Person();
+            child.parents.Add(this);
+
+            this.children.Add(child);
+
+            city.people.Add(child);
+
+            temporaryHappniess += 10;
+        }
+
         public void AddSickness(int amount)
         {
             if(sicknessProgress <= 0)
@@ -367,6 +382,9 @@ namespace Game
 
         public void AddRelationshipPartner(Person partner)
         {
+            city.singlePeople[(int)socialClass].Remove(this);
+            city.singlePeople[(int)partner.socialClass].Remove(partner);
+
             relationshipPartner = partner;
             relationshipProgress = 0;
 
@@ -374,25 +392,35 @@ namespace Game
             partner.relationshipProgress = 0;
         }
 
-        public void RemoveRelationshipParter()
+        public void RemoveRelationshipParter(bool hasDied)
         {
-            relationshipPartner.relationshipPartner = null;
-            relationshipPartner.relationshipProgress = 0;
+            if(relationshipPartner != null)
+            {
+                if(!hasDied)
+                {
+                    city.singlePeople[(int)socialClass].Add(this);
+                }
 
-            relationshipPartner = null;
-            relationshipProgress = 0;
+                city.singlePeople[(int)relationshipPartner.socialClass].Add(relationshipPartner);
+
+                relationshipPartner.relationshipPartner = null;
+                relationshipPartner.relationshipProgress = 0;
+
+                relationshipPartner = null;
+                relationshipProgress = 0;
+            }
         }
 
-        public int GetHappniess(Modifiers modifiers)
+        public int GetHappniess()
         {
             int total = happiness + temporaryHappniess;
 
             return total;
         }
 
-        public float GetHappniessMultiplier(Modifiers modifiers)
+        public float GetHappniessMultiplier()
         {
-            float happiness = GetHappniess(modifiers);
+            float happiness = GetHappniess();
 
             if(happiness >= 100)
             {

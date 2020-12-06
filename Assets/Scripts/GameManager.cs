@@ -41,7 +41,7 @@ namespace Game
 
         public int money;
         public int politicalPoints;
-        
+
         public Meter[] tax = 
         {
             Meter.Low,
@@ -51,11 +51,15 @@ namespace Game
             Meter.High,
         };
 
+        [Header("General Information")]
+        public int trimestralFederalGrant = 1000;
+
         [Header("Table Set 1")]
         public float[] findRelationshipChance = new float[(int)SocialClass.Count];
         public float[] procriateChance = new float[(int)SocialClass.Count];
         public float[] sicknessChance = new float[(int)SocialClass.Count];
         public float[] untreatedSicknessKillChance = new float[(int)SocialClass.Count];
+        public float[] dodgeTaxChance = new float[(int)SocialClass.Count];
 
         [Header("Table Set 2")]
         public float[] findSchoolChance = new float[(int)SocialClass.Count];
@@ -64,6 +68,11 @@ namespace Game
 
         [NonSerialized]
         public City city;
+
+        [Header("Internal")]
+        public int trimesterHappinessIndex = 0;
+
+        public int[] lifeStageCount = new int[(int)LifeStage.Count];
 
         //Events
         public Action<GameObject> onDestroyEvent;
@@ -142,11 +151,17 @@ namespace Game
         //Time
         public void OnUpdateTick()
         {
+            UpdateStructures();
             UpdatePeople();
         }
 
         public void OnUpdateMonth()
         {
+            for(int i = 0; i < (int)LifeStage.Count; ++i)
+            {
+                lifeStageCount[i] = 0;
+            }
+
             foreach(Person person in city.people)
             {
                 if(person.job == null)
@@ -160,11 +175,50 @@ namespace Game
                         --person.jobSecurityMonthsRemaining;
                     }
                 }
+
+                //Tax
+                if(Random.Range(0f, 100f) > dodgeTaxChance[(int)person.socialClass])
+                {
+                    //TODO: tax
+                }
+
+                //Relationships and procriation
+                if(person.relationshipPartner != null)
+                {
+                    ++person.relationshipProgress;
+
+                    if(person.children.Count < 4 && Random.Range(0f, 100f) <= procriateChance[(int)person.socialClass])
+                    {
+                        person.HaveChild();
+                    }
+                }
+                else
+                {
+                    if(person.lifeStage == LifeStage.Adult && Random.Range(0f, 100f) <= findRelationshipChance[(int)person.socialClass])
+                    {
+                        HashSet<Person> singleCollection = city.singlePeople[(int)person.socialClass];
+                        
+                        if(singleCollection.Count > 0)
+                        {
+                            person.AddRelationshipPartner(singleCollection.First());
+                        }
+                    }
+                }
+
+                lifeStageCount[(int)person.lifeStage] = 0;
             }
         }
 
         public void OnUpdateTrimester()
         {
+            trimesterHappinessIndex = 0;
+
+            foreach(Person person in city.people)
+            {
+                trimesterHappinessIndex += person.GetHappniess();
+            }
+
+            money += trimestralFederalGrant;
         }
 
         public void OnUpdateYear()
@@ -183,6 +237,9 @@ namespace Game
         }
 
         //Structure Management
+        public void UpdateStructures()
+        {
+        }
 
         //People Management
         public void UpdatePeople()
@@ -363,6 +420,10 @@ namespace Game
             }
         }
 
+        public float GetApprovalRating()
+        {
+            return 0;
+        }
         //
     }
 }
