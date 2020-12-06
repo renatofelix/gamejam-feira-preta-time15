@@ -12,8 +12,8 @@ namespace Game
 
         [SerializeField] private int rows;
         [SerializeField] private int cols;
-        [SerializeField] private TextMeshProUGUI selectDebug;
-        [SerializeField] private TextMeshProUGUI currentMouseLocation;
+        //[SerializeField] private TextMeshProUGUI selectDebug;
+        //[SerializeField] private TextMeshProUGUI currentMouseLocation;
 
         [SerializeField] private GameObject GhostReference;
         [SerializeField] private GameObject CurrentObjectSelect;
@@ -174,7 +174,7 @@ namespace Game
             GameModeManager();
 
 
-            currentMouseLocation.text = " X [" + CameraInteraction.GridMousePostion.x + "] Y [" + CameraInteraction.GridMousePostion.y + "]";
+            //currentMouseLocation.text = " X [" + CameraInteraction.GridMousePostion.x + "] Y [" + CameraInteraction.GridMousePostion.y + "]";
         }
 
         private void GameModeManager()
@@ -200,7 +200,7 @@ namespace Game
         public void DeleteObjectButton()
         {
             city.RemoveStructure(currentTile);
-            selectDebug.text = "";
+            //selectDebug.text = "";
             currentTile = null;
         }
     }
