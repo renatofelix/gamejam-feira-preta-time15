@@ -120,7 +120,7 @@ namespace Game
         public School school = null;
 
         [NonSerialized]
-        public int eudcationProgress = 0;
+        public int educationProgress = 0;
 
         [NonSerialized]
         public Hospital hospital = null;
@@ -186,9 +186,9 @@ namespace Game
             }
         }
 
-        public void ChangeEducation(Education newEducation)
+        public void Graduate()
         {
-            education = newEducation;
+            education = education + 1;
         }
 
         public void ChangeSocialClass(SocialClass newSocialClass)

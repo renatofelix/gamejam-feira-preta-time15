@@ -10,15 +10,7 @@ namespace Game
 
         public Education educationRequired;
 
-        public float[] temporaryHappinessBonusBasedOnEducation =
-        {
-            10,
-            10,
-            10,
-            10,
-        };
-
-        public float[] permanentHappinessBonusBasedOnEducation =
+        public int[] temporaryHappinessBonusBasedOnEducation =
         {
             10,
             10,
@@ -52,9 +44,14 @@ namespace Game
 
             foreach(Person student in students)
             {
-                if(student.sicknessProgress <= 0)
+                if(!student.IsSick())
                 {
-                    
+                    student.educationProgress += (int)(100*GetEffciencyValue());
+
+                    if(student.educationProgress >= 1000)
+                    {
+                        student.Graduate();
+                    }
                 }
             }
         }
@@ -69,7 +66,7 @@ namespace Game
             students.Add(person);
 
             person.school = this;
-            person.happiness += (int)(10*GetSocialClassValue());
+            person.happiness += temporaryHappinessBonusBasedOnEducation[(int)educationRequired];
             person.isLookingForBetterPlace = false;
 
             if(maxStudents - students.Count <= 0)
@@ -83,7 +80,7 @@ namespace Game
             students.Remove(person);
 
             person.school = null;
-            person.happiness -= (int)(10*GetSocialClassValue());
+            person.happiness -= temporaryHappinessBonusBasedOnEducation[(int)educationRequired];
             person.isLookingForBetterPlace = false;
 
             if(!city.availableSchools[(int)educationRequired].Contains(this))
