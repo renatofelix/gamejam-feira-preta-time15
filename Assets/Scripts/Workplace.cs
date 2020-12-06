@@ -94,8 +94,9 @@ namespace Game
             person.job = null;
             person.happiness -= (int)(10*(float)socialClass*1.5f);
             person.isLookingForBetterJob = false;
+            person.jobSecurityMonthsRemaining = city.jobSecurityMonthAmount;
 
-            person.ChangeSocialClass(SocialClass.Poor);
+            // person.ChangeSocialClass(job.);
 
             if(!city.availableJobs[(int)job.educationRequired].Contains(job))
             {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -8,6 +9,7 @@ namespace Game
     public struct Tile
     {
         public Structure structure;
+        public int publicTransportCoverage;
         public int policeCoverage;
         public int emergencyCoverage;
     }
@@ -119,6 +121,9 @@ namespace Game
         public bool isLookingForBetterJob = false;
 
         [NonSerialized]
+        public int jobSecurityMonthsRemaining = 0;
+
+        [NonSerialized]
         public Residence residence = null;
 
         [NonSerialized]
@@ -141,6 +146,9 @@ namespace Game
 
         [NonSerialized]
         public int happiness = 0;
+
+        [NonSerialized]
+        public int temporaryHappniess = 0;
 
         public void Born()
         {
@@ -176,7 +184,7 @@ namespace Game
             {
                 parent.children.Remove(this);
 
-                parent.happiness -= 3;
+                parent.temporaryHappniess -= 10;
             }
 
             foreach(Person child in children)
@@ -189,7 +197,32 @@ namespace Game
                 }
                 else
                 {
-                    child.happiness -= 3;
+                    child.happiness -= 10;
+                }
+            }
+        }
+
+        public void GrowOlder()
+        {
+            ++age;
+
+            if(lifeStage == LifeStage.Infant && age >= 8)
+            {
+                ++lifeStage;
+            }
+            else if(lifeStage == LifeStage.Youth && age >= 21)
+            {
+                ++lifeStage;
+            }
+            else if(lifeStage == LifeStage.Adult && age >= 60)
+            {
+                ++lifeStage;
+            }
+            else if(lifeStage == LifeStage.Senior)
+            {
+                if(Random.Range(0f, 100f) <= 20f)
+                {
+                    Death();
                 }
             }
         }
@@ -202,7 +235,7 @@ namespace Game
 
         public void ChangeSocialClass(SocialClass newSocialClass)
         {
-            socialClass = newSocialClass;
+            socialClass = (SocialClass)Mathf.Clamp((int)newSocialClass, 0, (int)SocialClass.Count - 1);
 
             if((int)newSocialClass > (int)socialClass)
             {
@@ -219,6 +252,21 @@ namespace Game
             if(relationshipPartner == null)
             {
                 return (SocialClass)Mathf.Max((int)minimumSocialClass, (int)socialClass);
+            }
+            else if(lifeStage == LifeStage.Infant)
+            {
+                return parents[0].GetSocialClass();
+            }
+            else if(lifeStage == LifeStage.Youth)
+            {
+                if(parents.Count > 0)
+                {
+                    return parents[0].GetSocialClass();
+                }
+                else
+                {
+                    return (SocialClass)Mathf.Max((int)minimumSocialClass, (int)socialClass);
+                }
             }
             else
             {
@@ -302,11 +350,37 @@ namespace Game
             relationshipProgress = 0;
         }
 
-        public int CalculateHappniess(Modifiers modifiers)
+        public int GetHappniess(Modifiers modifiers)
         {
-            int total = happiness;
+            int total = happiness + temporaryHappniess;
 
             return total;
+        }
+
+        public float GetHappniessMultiplier(Modifiers modifiers)
+        {
+            float happiness = GetHappniess(modifiers);
+
+            if(happiness >= 100)
+            {
+                return 1.3f;
+            }
+            else if(happiness >= 50)
+            {
+                return 1.0f;
+            }
+            else if(happiness >= 0)
+            {
+                return 0.5f;
+            }
+            else if(happiness >= -50)
+            {
+                return 0.0f;
+            }
+            else
+            {
+                return -1.0f;
+            }
         }
     }
 

@@ -31,8 +31,8 @@ namespace Game
         public override void Tick()
         {
             base.Tick();
-            
-            //TODO: Upgrade/Downgrade to a higher/lower social class if more than 85% of the tenants are from a higher/lower level
+
+            //TODO: Upgrade/Downgrade to a higher/lower social class if more than 85% of the tenants are from a higher/lower level. Also upgrade the building models.
         }
 
         public void UpdateSocialClass(SocialClass newSocialClass)

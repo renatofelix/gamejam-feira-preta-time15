@@ -14,13 +14,16 @@ namespace Game
         public float positionMultiplier = 2.0f;
         public Transform cityTransform;
 
+        //Government data
+        public int jobSecurityMonthAmount = 0;
+
+        //General
         [NonSerialized]
         public List<Structure> structures = new List<Structure>();
 
         [NonSerialized]
         public HashSet<Person> people = new HashSet<Person>();
 
-        //General
         [NonSerialized]
         public HashSet<Job>[] availableJobs;
 

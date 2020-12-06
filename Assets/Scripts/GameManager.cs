@@ -43,6 +43,8 @@ namespace Game
         public int politicalPoints;
 
         public float[] findRelationshipChance = new float[(int)SocialClass.Count];
+        public float[] findSchoolChance = new float[(int)SocialClass.Count];
+        public float[] findHospitalChance = new float[(int)SocialClass.Count];
         public float[] procriateChance = new float[(int)SocialClass.Count];
         public float[] sicknessChance = new float[(int)SocialClass.Count];
         public float[] untreatedSicknessKillChance = new float[(int)SocialClass.Count];
@@ -132,6 +134,20 @@ namespace Game
 
         public void OnUpdateMonth()
         {
+            foreach(Person person in city.people)
+            {
+                if(person.job == null)
+                {
+                    if(person.jobSecurityMonthsRemaining <= 0)
+                    {
+                        person.ChangeSocialClass(person.socialClass - 1);
+                    }
+                    else
+                    {
+                        --person.jobSecurityMonthsRemaining;
+                    }
+                }
+            }
         }
 
         public void OnUpdateTrimester()
@@ -143,6 +159,13 @@ namespace Game
             if(year == 4)
             {
                 //TODO: End game
+
+                return;
+            }
+
+            foreach(Person person in city.people)
+            {
+                person.GrowOlder();
             }
         }
 
@@ -153,6 +176,15 @@ namespace Game
         {
             foreach(Person person in city.people)
             {
+                if(person.temporaryHappniess > 0)
+                {
+                    person.temporaryHappniess = Mathf.Max(0, person.temporaryHappniess - (3*((int)person.socialClass + 1)));
+                }
+                else if(person.temporaryHappniess < 0)
+                {
+                    person.temporaryHappniess = Mathf.Min(person.temporaryHappniess + (3*((int)person.socialClass + 1)), 0);
+                }
+
                 if(!person.IsSick() && Random.Range(0f, 100f) <= sicknessChance[(int)person.GetSocialClass()])
                 {
                     person.AddSickness(Random.Range(800, 1200));
@@ -164,12 +196,20 @@ namespace Game
                     {
                         SearchForHospital(person);
                     }
+                    else
+                    {
+                        SearchForSchool(person);
+                    }
                 }
                 else if(person.lifeStage == LifeStage.Youth)
                 {
                     if(person.IsSick())
                     {
                         SearchForHospital(person);
+                    }
+                    else
+                    {
+                        SearchForSchool(person);
                     }
                 }
                 else if(person.lifeStage == LifeStage.Adult || person.lifeStage == LifeStage.Senior)
@@ -220,7 +260,7 @@ namespace Game
                             }
                         }
                     }
-
+                    
                     if(!person.IsSick())
                     {
                         if(person.job == null || (int)person.job.educationRequired < (int)person.education || person.isLookingForBetterJob)
@@ -239,6 +279,10 @@ namespace Game
                                 }
                             }
                         }
+                        else
+                        {
+                            SearchForSchool(person);
+                        }
                     }
                     else
                     {
@@ -250,15 +294,22 @@ namespace Game
 
         public void SearchForSchool(Person person)
         {
-            if(person.school = null)
+            if((int)person.education < (int)Education.Higher && person.school == null && Random.Range(0f, 100f) <= findSchoolChance[(int)person.socialClass])
             {
-                // if(
+                HashSet<School> schoolCollection = city.availableSchools[(int)person.education];
+
+                if(schoolCollection.Count > 0)
+                {
+                    School school = schoolCollection.First();
+
+                    school.Enroll(person);
+                }
             }
         }
 
         public void SearchForHospital(Person person)
         {
-            if(person.hospital == null)
+            if(person.hospital == null && Random.Range(0f, 100f) <= findHospitalChance[(int)person.socialClass])
             {
                 if(city.availableHospitals.Count > 0)
                 {
