@@ -45,11 +45,11 @@ namespace Game
 
         public void Awake()
         {
-            grid = new Tile[gridWidth, gridHeight];
+            grid = new Tile[gridHeight, gridWidth];
 
-            for(int i = 0; i < gridWidth; ++i)
+            for(int i = 0; i < gridHeight; ++i)
             {
-                for(int j = 0; j < gridHeight; ++j)
+                for(int j = 0; j < gridWidth; ++j)
                 {
                     grid[i, j].structure = null;
                     grid[i, j].coverages = new int[(int)Coverage.Count];
