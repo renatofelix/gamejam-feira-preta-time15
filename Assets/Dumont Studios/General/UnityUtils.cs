@@ -8,6 +8,7 @@ namespace DumontStudios.General
 
         public AudioSource genericAudioSource2D;
         public AudioSource genericAudioSource;
+        public AudioSource mixerAudiSource;
 
         //General
         public void Awake()

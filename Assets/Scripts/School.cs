@@ -23,9 +23,9 @@ namespace Game
 
         public override void Awake()
         {
-            city.availableSchools[(int)educationRequired].Add(this);
-
             base.Awake();
+
+            city.availableSchools[(int)educationRequired].Add(this);
         }
 
         public override void Destroy()
@@ -42,17 +42,35 @@ namespace Game
         {
             base.Tick();
 
+            List<Person> graduated = new List<Person>();
+
             foreach(Person student in students)
             {
-                if(!student.IsSick())
-                {
-                    student.educationProgress += (int)(100*GetEffciencyValue());
+                float penalty = 0.0f;
 
-                    if(student.educationProgress >= 1000)
-                    {
-                        student.Graduate();
-                    }
+                if(student.IsSick())
+                {
+                    penalty += 0.2f;
                 }
+
+                if(student.job != null)
+                {
+                    penalty += 0.3f;
+                }
+
+                student.educationProgress += (int)((100*GetEffciencyValue())*(1.0f - penalty));
+
+                if(student.lifeStage != LifeStage.Infant && student.educationProgress >= 1000)
+                {
+                    graduated.Add(student);
+                }
+            }
+
+            foreach(Person student in graduated)
+            {
+                student.Graduate();
+
+                Dismiss(student);
             }
         }
 

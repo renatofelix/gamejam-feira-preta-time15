@@ -14,13 +14,16 @@ namespace Game
         public float positionMultiplier = 2.0f;
         public Transform cityTransform;
 
+        //Government data
+        public int jobSecurityMonthAmount = 0;
+
+        //General
         [NonSerialized]
         public List<Structure> structures = new List<Structure>();
 
         [NonSerialized]
         public HashSet<Person> people = new HashSet<Person>();
 
-        //General
         [NonSerialized]
         public HashSet<Job>[] availableJobs;
 
@@ -43,6 +46,15 @@ namespace Game
         public void Awake()
         {
             grid = new Tile[gridWidth, gridHeight];
+
+            for(int i = 0; i < gridWidth; ++i)
+            {
+                for(int j = 0; j < gridHeight; ++j)
+                {
+                    grid[i, j].structure = null;
+                    grid[i, j].coverages = new int[(int)Coverage.Count];
+                }
+            }
 
             availableJobs = new HashSet<Job>[(int)Education.Count];
 
@@ -80,7 +92,7 @@ namespace Game
         {
             Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), rotation, cityTransform);
 
-            grid[position.x, position.y].structure = structure;
+            grid[gridHeight - position.y, position.x].structure = structure;
 
             structure.position = position;
 
@@ -96,7 +108,7 @@ namespace Game
         {
             if(structure.canBeDestroyed)
             {
-                grid[structure.position.x, structure.position.y].structure = null;
+                grid[gridHeight - structure.position.y, structure.position.x].structure = null;
 
                 OnRemoveStructure?.Invoke(structure);
 
@@ -106,12 +118,12 @@ namespace Game
 
         public ref Tile GetTile(Vector2Int position)
         {
-            return ref grid[position.x, position.y];
+            return ref grid[position.y, position.x];
         }
 
         public Structure GetStructure(Vector2Int position)
         {
-            return grid[position.x, position.y].structure;
+            return grid[gridHeight - position.y, position.x].structure;
         }
 
         //People

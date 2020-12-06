@@ -7,6 +7,7 @@ namespace Game
 {
     public class Hospital : Workplace
     {
+        [Header("Hospital")]
         public int maxPatients;
 
         public float[] efficiencyKillChance = 
@@ -22,9 +23,9 @@ namespace Game
 
         public override void Awake()
         {
-            city.availableHospitals.Add(this);
-
             base.Awake();
+
+            city.availableHospitals.Add(this);
         }
 
         public override void Destroy()
@@ -42,29 +43,35 @@ namespace Game
             base.Tick();
 
             List<Person> dead = new List<Person>();
+            List<Person> discharged = new List<Person>();
 
             foreach(Person patient in patients)
             {
                 if(Random.Range(0f, 100f) <= efficiencyKillChance[(int)efficiency])
                 {
                     dead.Add(patient);
-
-                    continue;
                 }
-
-                patient.sicknessProgress -= (int)(100*GetEffciencyValue());
-
-                if(patient.sicknessProgress <= 0)
+                else
                 {
-                    patient.RemoveSickness();
+                    patient.sicknessProgress -= (int)(100*GetEffciencyValue());
 
-                    DischargePatient(patient);
+                    if(patient.sicknessProgress <= 0)
+                    {
+                        discharged.Add(patient);
+                    }
                 }
             }
 
             foreach(Person patient in dead)
             {
                 patient.Death();
+            }
+
+            foreach(Person patient in discharged)
+            {
+                patient.RemoveSickness();
+
+                DischargePatient(patient);
             }
         }
 

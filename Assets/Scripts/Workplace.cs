@@ -23,17 +23,31 @@ namespace Game
             1.5f,
         };
 
+        [Header("Workplace")]
         public SocialClass targetConsumer;
         
-        public int effectiveArea;
+        // public int effectiveArea;
 
         public List<Job> work;
+
+        public int[] budgetEffectOnEfficiency =
+        {
+            0,
+            1,
+            2,
+        };
 
         [NonSerialized]
         public Efficiency efficiency = Efficiency.Low;//Depends on happiness and other status of all workers and if the target
 
         [NonSerialized]
         public Dictionary<string, Job> workBranches = new Dictionary<string, Job>();
+
+        [NonSerialized]
+        public int totalWorkers = 0;
+
+        [NonSerialized]
+        public int currentWorkers = 0;
 
         public override void Awake()
         {
@@ -48,6 +62,8 @@ namespace Game
                 workBranches.Add(job.name, job);
 
                 city.availableJobs[(int)socialClass].Add(job);
+
+                totalWorkers += job.maxWorkers;
             }
         }
 
@@ -83,6 +99,8 @@ namespace Game
             {
                 city.availableJobs[(int)job.educationRequired].Remove(job);
             }
+
+            ++currentWorkers;
         }
 
         public void Fire(Person person)
@@ -94,13 +112,16 @@ namespace Game
             person.job = null;
             person.happiness -= (int)(10*(float)socialClass*1.5f);
             person.isLookingForBetterJob = false;
+            person.jobSecurityMonthsRemaining = city.jobSecurityMonthAmount;
 
-            person.ChangeSocialClass(SocialClass.Poor);
+            // person.ChangeSocialClass(job.);
 
             if(!city.availableJobs[(int)job.educationRequired].Contains(job))
             {
                 city.availableJobs[(int)job.educationRequired].Add(job);
             }
+
+            --currentWorkers;
         }
 
         public override void Tick()
@@ -110,13 +131,42 @@ namespace Game
             CalculateEfficiency();
         }
 
+        public override void OnChangeBudget(Budget oldBudget, Budget newBudget)
+        {
+            base.OnChangeBudget(oldBudget, newBudget);
+
+            CalculateEfficiency();
+        }
+
         public void CalculateEfficiency()
         {
+            Efficiency newEfficiency = 0;
+
+            newEfficiency += budgetEffectOnEfficiency[(int)budget];
+
+            if(currentWorkers > totalWorkers*0.7f)
+            {
+                newEfficiency += 2;
+            }
+            else if(currentWorkers > 0)
+            {
+                newEfficiency  += 1;
+            }
+
+            Efficiency oldEfficiency = efficiency;
+
+            efficiency = newEfficiency;
+
+            OnChangeEfficiency(oldEfficiency, newEfficiency);
         }
 
         public float GetEffciencyValue()
         {
             return efficiencyTable[(int)efficiency];
+        }
+
+        public virtual void OnChangeEfficiency(Efficiency oldEfficiency, Efficiency newEfficiency)
+        {
         }
     }
 }
