@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5439799841756972800
+--- !u!1 &3826682947456520064
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4626847794611019194}
-  - component: {fileID: 8618207551531110943}
-  - component: {fileID: 5800338707668608725}
-  - component: {fileID: 6518464186678684392}
-  - component: {fileID: 5673643540826582019}
+  - component: {fileID: 4490312515443529018}
+  - component: {fileID: 720313038645729951}
+  - component: {fileID: 3322503882505940565}
+  - component: {fileID: 8673781190986363059}
+  - component: {fileID: 952442557810540089}
   m_Layer: 0
-  m_Name: Casa Comum 01
+  m_Name: Comercio Pequeno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4626847794611019194
+--- !u!4 &4490312515443529018
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5439799841756972800}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071067, w: 0.7071068}
-  m_LocalPosition: {x: 1.7763568e-15, y: -0.9535694, z: -2}
+  m_GameObject: {fileID: 3826682947456520064}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8618207551531110943
+--- !u!33 &720313038645729951
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5439799841756972800}
-  m_Mesh: {fileID: -5005097340882061705, guid: b4abd8c7b01d2ca439a39a891c6a85a7, type: 3}
---- !u!23 &5800338707668608725
+  m_GameObject: {fileID: 3826682947456520064}
+  m_Mesh: {fileID: -7945198582185474524, guid: c00aff3b5bfc9b942a49e9f38720c8f8, type: 3}
+--- !u!23 &3322503882505940565
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5439799841756972800}
+  m_GameObject: {fileID: 3826682947456520064}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2077597597618540663, guid: b4abd8c7b01d2ca439a39a891c6a85a7, type: 3}
+  - {fileID: 2077597597618540663, guid: c00aff3b5bfc9b942a49e9f38720c8f8, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,16 +81,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6518464186678684392
+--- !u!65 &8673781190986363059
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826682947456520064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8, y: 0.3, z: 1.8}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &952442557810540089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5439799841756972800}
+  m_GameObject: {fileID: 3826682947456520064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7bb7cba425d16341beb38a586f5e92d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d28656963aa57346a9735dffceef570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 
@@ -110,16 +123,5 @@ MonoBehaviour:
   - 1
   - 1.2
   - 2
---- !u!65 &5673643540826582019
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5439799841756972800}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 1.8, z: 1.8}
-  m_Center: {x: 0, y: 0, z: 0}
+  work: []
+  budgetEffectOnEfficiency: 000000000100000002000000

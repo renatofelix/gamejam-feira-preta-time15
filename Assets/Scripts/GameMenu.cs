@@ -476,6 +476,7 @@ namespace Game
 
         public void OnClickSellOrDestroy()
         {
+            GridManager._instance.ActivateModeSale();
         }
 
         public void OnClickTax()

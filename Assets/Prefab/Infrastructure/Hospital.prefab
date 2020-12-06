@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1646971951143375922
+--- !u!1 &1259099686776611476
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2130458740906692232}
-  - component: {fileID: 3044208475062239533}
-  - component: {fileID: 998607466793104871}
-  - component: {fileID: 5485994378288973549}
-  - component: {fileID: 3798736458013246958}
+  - component: {fileID: 1887827186313885742}
+  - component: {fileID: 3286839685831161739}
+  - component: {fileID: 754849978203996993}
+  - component: {fileID: 2075381821577707742}
+  - component: {fileID: 917657901963439257}
   m_Layer: 0
-  m_Name: Casa Comum 02
+  m_Name: Hospital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2130458740906692232
+--- !u!4 &1887827186313885742
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646971951143375922}
+  m_GameObject: {fileID: 1259099686776611476}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000000029802322, y: -0.9535694, z: -4}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3044208475062239533
+--- !u!33 &3286839685831161739
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646971951143375922}
-  m_Mesh: {fileID: 5620895293151004087, guid: d06554cb27c1ec647b1ecb0b09b3c541, type: 3}
---- !u!23 &998607466793104871
+  m_GameObject: {fileID: 1259099686776611476}
+  m_Mesh: {fileID: 5105444607536947446, guid: 0de60e846c867564f80240feade02618, type: 3}
+--- !u!23 &754849978203996993
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646971951143375922}
+  m_GameObject: {fileID: 1259099686776611476}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2077597597618540663, guid: d06554cb27c1ec647b1ecb0b09b3c541, type: 3}
+  - {fileID: 2077597597618540663, guid: 0de60e846c867564f80240feade02618, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,16 +81,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5485994378288973549
+--- !u!65 &2075381821577707742
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259099686776611476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8, y: 0.3, z: 1.8}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &917657901963439257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646971951143375922}
+  m_GameObject: {fileID: 1259099686776611476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7bb7cba425d16341beb38a586f5e92d, type: 3}
+  m_Script: {fileID: 11500000, guid: d02e8715a4476f643a84f38016b8978f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 
@@ -110,16 +123,11 @@ MonoBehaviour:
   - 1
   - 1.2
   - 2
---- !u!65 &3798736458013246958
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646971951143375922}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.8, y: 0.3, z: 1.8}
-  m_Center: {x: 0, y: 0, z: 0}
+  work: []
+  budgetEffectOnEfficiency: 000000000100000002000000
+  maxPatients: 0
+  efficiencyKillChance:
+  - 50
+  - 30
+  - 15
+  - 5
