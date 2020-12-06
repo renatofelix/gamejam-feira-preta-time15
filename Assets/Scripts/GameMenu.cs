@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
+    [DefaultExecutionOrder(100)]
     public class GameMenu : MonoBehaviour
     {
         public static GameMenu instance;
@@ -204,6 +205,16 @@ namespace Game
                     }
                 });
             }
+
+            GridManager._instance.OnSelectTile = (Structure structure) =>
+            {
+                ShowStructureInfo(structure);
+            };
+
+            GridManager._instance.OnDeselectTile = (Structure structure) =>
+            {
+                HideInfo();
+            };
         }
 
         public void Update()
@@ -450,8 +461,6 @@ namespace Game
         public void ShowTaxPanel()
         {
             taxPanel.gameObject.SetActive(true);
-
-            
         }
 
         public void HideTaxPanel()
