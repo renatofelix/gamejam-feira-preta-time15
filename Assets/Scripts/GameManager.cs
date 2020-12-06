@@ -260,7 +260,7 @@ namespace Game
                             }
                         }
                     }
-                    
+
                     if(!person.IsSick())
                     {
                         if(person.job == null || (int)person.job.educationRequired < (int)person.education || person.isLookingForBetterJob)
@@ -296,13 +296,27 @@ namespace Game
         {
             if((int)person.education < (int)Education.Higher && person.school == null && Random.Range(0f, 100f) <= findSchoolChance[(int)person.socialClass])
             {
-                HashSet<School> schoolCollection = city.availableSchools[(int)person.education];
+                School desiredSchool = null;
 
-                if(schoolCollection.Count > 0)
+                foreach(School school in city.availableSchools[(int)person.education])
                 {
-                    School school = schoolCollection.First();
+                    if(school.ownership == Ownership.Private && person.socialClass >= school.socialClass)
+                    {
+                        desiredSchool = school;
 
-                    school.Enroll(person);
+                        break;
+                    }
+                    else if(school.ownership == Ownership.Private)
+                    {
+                        desiredSchool = school;
+
+                        break;
+                    }
+                }
+
+                if(desiredSchool != null)
+                {
+                    desiredSchool.Enroll(person);
                 }
             }
         }
@@ -311,11 +325,27 @@ namespace Game
         {
             if(person.hospital == null && Random.Range(0f, 100f) <= findHospitalChance[(int)person.socialClass])
             {
-                if(city.availableHospitals.Count > 0)
+                Hospital desiredHospital = null;
+                
+                foreach(Hospital hospital in city.availableHospitals)
                 {
-                    Hospital hospital = city.availableHospitals.First();
+                    if(hospital.ownership == Ownership.Private && person.socialClass >= hospital.socialClass)
+                    {
+                        desiredHospital = hospital;
 
-                    hospital.AdimitPatient(person);
+                        break;
+                    }
+                    else if(hospital.ownership == Ownership.Private)
+                    {
+                        desiredHospital = hospital;
+
+                        break;
+                    }
+                }
+
+                if(desiredHospital != null)
+                {
+                    desiredHospital.AdimitPatient(person);
                 }
             }
         }

@@ -1,0 +1,24 @@
+Revenue/Profit/Expenses
+UI
+Tax mechanism (per social class)
+Card system
+
+Structures
+    Police stations
+        Should only add security to tiles once placed and remove security when destroyed
+        *Should arrest citizens periodically
+
+    Prisons
+        House criminals
+
+    Fire department
+        For now just increases happiness of nearby houses
+
+    Bus stops
+        For now just increases happiness of nearby houses
+
+    Workplace
+        People should be fired from time to time
+
+    *Water Tower
+        For now just increases happiness of nearby houses
