@@ -56,6 +56,9 @@ namespace Game
         [NonSerialized]
         public Vector2Int position;
 
+        [NonSerialized]
+        public Person owner = null;
+
         public virtual void Awake()
         {
             ChangeInfluence(influenceAmount, influenceRange);
@@ -154,6 +157,11 @@ namespace Game
         public int GetUpkeepCost()
         {
             return upkeepCost*((int)budget + 1);
+        }
+
+        public virtual int GetProfit()
+        {
+            return 0;
         }
 
         public float GetSocialClassValue()

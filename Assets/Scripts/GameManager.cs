@@ -39,8 +39,17 @@ namespace Game
         public int ticksPerMonth = 2;
         public float trimesterDuration = 120;
 
-        public int budget;
+        public int money;
         public int politicalPoints;
+        
+        public Meter[] tax = 
+        {
+            Meter.Low,
+            Meter.Low,
+            Meter.Low,
+            Meter.Medium,
+            Meter.High,
+        };
 
         [Header("Table Set 1")]
         public float[] findRelationshipChance = new float[(int)SocialClass.Count];
