@@ -45,7 +45,7 @@ namespace Game
         public float[] findRelationshipChance = new float[(int)SocialClass.Count];
         public float[] procriateChance = new float[(int)SocialClass.Count];
         public float[] sicknessChance = new float[(int)SocialClass.Count];
-        public float[] sicknessKillChance = new float[(int)SocialClass.Count];
+        public float[] untreatedSicknessKillChance = new float[(int)SocialClass.Count];
 
         [NonSerialized]
         public City city;
@@ -153,16 +153,24 @@ namespace Game
         {
             foreach(Person person in city.people)
             {
-                if(!person.isSick && Random.Range(0f, 100f) <= sicknessChance[(int)person.GetSocialClass()])
+                if(person.sicknessProgress <= 0 && Random.Range(0f, 100f) <= sicknessChance[(int)person.GetSocialClass()])
                 {
-                    person.ChangeSicknessState(true);
+                    person.AddSickness(Random.Range(800, 1200));
                 }
 
                 if(person.lifeStage == LifeStage.Infant)
                 {
+                    if(person.sicknessProgress > 0)
+                    {
+                        SearchForHospital(person);
+                    }
                 }
                 else if(person.lifeStage == LifeStage.Youth)
                 {
+                    if(person.sicknessProgress > 0)
+                    {
+                        SearchForHospital(person);
+                    }
                 }
                 else if(person.lifeStage == LifeStage.Adult || person.lifeStage == LifeStage.Senior)
                 {
@@ -187,9 +195,9 @@ namespace Game
                             }
                         }
 
-                        bool rented = false;
+                        Residence rentedResidence = null;
 
-                        for(int currentSocialClass = (int)person.GetSocialClass(); currentSocialClass >= 0 && !rented; --currentSocialClass)
+                        for(int currentSocialClass = (int)person.GetSocialClass(); currentSocialClass >= 0 && rentedResidence == null; --currentSocialClass)
                         {
                             HashSet<Residence> residenceCollection = city.availableResidences[(int)currentSocialClass];
 
@@ -197,22 +205,23 @@ namespace Game
                             {
                                 if(residence.maxResidents - residence.residents.Count >= family.Count)
                                 {
-                                    for(int familyMemberIndex = 0; familyMemberIndex < family.Count; ++familyMemberIndex)
-                                    {
-                                        Person familyMember = family[familyMemberIndex];
-
-                                        residence.RentFor(family[familyMemberIndex]);
-                                    }
-
-                                    rented = true;
+                                    rentedResidence = residence;
 
                                     break;
                                 }
                             }
                         }
+
+                        if(rentedResidence != null)
+                        {
+                            foreach(Person member in family)
+                            {
+                                rentedResidence.RentFor(member);
+                            }
+                        }
                     }
 
-                    if(!person.isSick)
+                    if(person.sicknessProgress <= 0)
                     {
                         if(person.job == null || (int)person.job.educationRequired < (int)person.education || person.isLookingForBetterJob)
                         {
@@ -224,7 +233,7 @@ namespace Game
                                 {
                                     Job job = jobCollection.First();
 
-                                    job.workplace.Hire(person);
+                                    job.workplace.Hire(job, person);
 
                                     break;
                                 }
@@ -233,11 +242,25 @@ namespace Game
                     }
                     else
                     {
-                        //TODO: try to find hospital
-
+                        SearchForHospital(person);
                     }
                 }
             }
         }
+
+        public void SearchForHospital(Person person)
+        {
+            if(person.hospital == null)
+            {
+                if(city.availableHospitals.Count > 0)
+                {
+                    Hospital hospital = city.availableHospitals.First();
+
+                    hospital.AdimitPatient(person);
+                }
+            }
+        }
+
+        //
     }
 }

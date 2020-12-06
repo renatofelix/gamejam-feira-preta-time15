@@ -15,6 +15,14 @@ namespace Game
 
     public class Workplace : Structure
     {
+        public static float[] efficiencyMultiplierTable =
+        {
+            0.2f,
+            0.5f,
+            1.0f,
+            1.5f,
+        };
+
         public SocialClass targetConsumer;
         
         public int effectiveArea;
@@ -35,7 +43,7 @@ namespace Game
             {
                 Job job = work[i];
 
-                job.workers = new List<Person>(job.maxWorkers);
+                job.workers = new HashSet<Person>();
 
                 workBranches.Add(job.name, job);
 
@@ -56,23 +64,55 @@ namespace Game
             base.Destroy();
         }
 
-        public void Hire(Person person)
+        public void Hire(Job job, Person person)
         {
             if(person.job != null)
             {
                 person.job.workplace.Fire(person);
             }
+
+            job.workers.Add(person);
+
+            person.job = job;
+            person.happiness += (int)(10*(float)socialClass*1.5f);
+            person.isLookingForBetterJob = false;
+
+            if(job.maxWorkers - job.workers.Count <= 0)
+            {
+                city.availableJobs[(int)job.educationRequired].Remove(job);
+            }
         }
 
         public void Fire(Person person)
         {
+            Job job = person.job;
+
+            person.job.workers.Remove(person);
+
+            person.job = null;
+            person.happiness -= (int)(10*(float)socialClass*1.5f);
+            person.isLookingForBetterJob = false;
+
+            if(!city.availableJobs[(int)job.educationRequired].Contains(job))
+            {
+                city.availableJobs[(int)job.educationRequired].Add(job);
+            }
         }
 
         public override void Tick()
         {
-
-
             base.Tick();
+
+            CalculateEfficiency();
+        }
+
+        public void CalculateEfficiency()
+        {
+        }
+
+        public float GetEffciencyValue()
+        {
+            return efficiencyMultiplierTable[(int)efficiency];
         }
     }
 }

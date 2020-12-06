@@ -123,10 +123,7 @@ namespace Game
         public int eudcationProgress = 0;
 
         [NonSerialized]
-        public bool isSick = false;
-
-        [NonSerialized]
-        public bool isHospitalized = false;
+        public Hospital hospital = null;
 
         [NonSerialized]
         public int sicknessProgress = 0;
@@ -152,16 +149,32 @@ namespace Game
                 residence.Evict(this);
             }
 
+            if(hospital != null)
+            {
+                hospital.DischargePatient(this);
+            }
+
             RemoveRelationshipParter();
 
             foreach(Person parent in parents)
             {
                 parent.children.Remove(this);
+
+                parent.happiness -= 3;
             }
 
             foreach(Person child in children)
             {
                 child.parents.Remove(this);
+
+                if(child.lifeStage == LifeStage.Infant && child.parents.Count <= 0)
+                {
+                    child.Death();//The parent was already removed, so the child's death it won't affect this loop. Probably...
+                }
+                else
+                {
+                    child.happiness -= 3;
+                }
             }
         }
 
@@ -223,18 +236,21 @@ namespace Game
             minimumSocialClass = newSocialClass;
         }
 
-        public void ChangeSicknessState(bool isSickState)
+        public void AddSickness(int amount)
         {
-            isSick = isSickState;
-
-            if(isSick)
+            if(sicknessProgress <= 0)
             {
                 happiness -= 20;
             }
-            else
-            {
-                happiness += 20;
-            }
+
+            sicknessProgress += amount;
+        }
+
+        public void RemoveSickness()
+        {
+            sicknessProgress = 0;
+
+            happiness += 20;
         }
 
         public void AddRelationshipPartner(Person partner)
@@ -283,7 +299,7 @@ namespace Game
         public int maxWorkers;
 
         [NonSerialized]
-        public List<Person> workers;
+        public HashSet<Person> workers;
 
         [NonSerialized]
         public Workplace workplace = null;

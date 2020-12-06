@@ -27,6 +27,9 @@ namespace Game
         [NonSerialized]
         public HashSet<Structure>[] forSaleStructures;
 
+        [NonSerialized]
+        public HashSet<Hospital> availableHospitals;
+
         //Events
         public Action<Structure> OnAddStructure;
         public Action<Structure> OnRemoveStructure;
@@ -55,6 +58,8 @@ namespace Game
             {
                 forSaleStructures[i] = new HashSet<Structure>();
             }
+
+            availableHospitals = new HashSet<Hospital>();
         }
 
         //Structures
