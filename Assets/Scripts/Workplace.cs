@@ -22,10 +22,10 @@ namespace Game
         public List<Job> work;
 
         [NonSerialized]
-        public Efficiency efficiency;//Depends on happiness and other status of all workers and if the target
+        public Efficiency efficiency = Efficiency.Low;//Depends on happiness and other status of all workers and if the target
 
         [NonSerialized]
-        public Dictionary<string, Job> workBranches;
+        public Dictionary<string, Job> workBranches = new Dictionary<string, Job>();
 
         public override void Awake()
         {
@@ -45,7 +45,13 @@ namespace Game
 
         public override void Destroy()
         {
-            //TODO: Remove all workers
+            foreach(Job work in work)
+            {
+                foreach(Person person in work.workers)
+                {
+                    Fire(person);
+                }
+            }
             
             base.Destroy();
         }

@@ -94,34 +94,43 @@ namespace Game
         public List<Person> children = new List<Person>();
 
         [NonSerialized]
-        public Person relationshipPartner;
+        public Person relationshipPartner = null;
 
         [NonSerialized]
-        public int relationshipElapsedTicks;
+        public int relationshipProgress = 0;
 
         [NonSerialized]
-        public SocialClass minimumSocialClass;//Used in case the person is unemployed but is very rich
+        public SocialClass minimumSocialClass = SocialClass.Poor;//Used in case the person is unemployed but is very rich
 
         [NonSerialized]
-        public Job job;
+        public Job job = null;
 
         [NonSerialized]
-        public bool isLookingForBetterJob;
+        public bool isLookingForBetterJob = false;
 
         [NonSerialized]
-        public Residence residence;
+        public Residence residence = null;
 
         [NonSerialized]
-        public bool isLookingForBetterPlace;
+        public bool isLookingForBetterPlace = false;
 
         [NonSerialized]
-        public List<Structure> propertiesOwned;
+        public List<Structure> propertiesOwned = new List<Structure>();
 
         [NonSerialized]
-        public bool isSick;
+        public int eudcationProgress = 0;
+
+        [NonSerialized]
+        public bool isSick = false;
+
+        [NonSerialized]
+        public bool isHosptilized = false;
+
+        [NonSerialized]
+        public int sicknessProgress = 0;
         
         [NonSerialized]
-        public int happiness;
+        public int happiness = 0;
 
         public void Born()
         {
@@ -129,7 +138,17 @@ namespace Game
 
         public void Death()
         {
-            // for(int i =
+            if(job != null)
+            {
+                job.workplace.Fire(this);
+            }
+
+            if(residence != null)
+            {
+                residence.Evict(this);
+            }
+
+            RemoveRelationshipParter();
         }
 
         public void ChangeEducation(Education newEducation)
@@ -144,7 +163,14 @@ namespace Game
 
         public SocialClass GetSocialClass()
         {
-            return (SocialClass)Mathf.Max((int)minimumSocialClass, (int)socialClass);
+            if(relationshipPartner == null)
+            {
+                return (SocialClass)Mathf.Max((int)minimumSocialClass, (int)socialClass);
+            }
+            else
+            {
+                return (SocialClass)Mathf.Max((int)minimumSocialClass, (int)socialClass, (int)relationshipPartner.socialClass);
+            }
         }
 
         public void ChangeJob(Job newJob)
@@ -197,11 +223,22 @@ namespace Game
             }
         }
 
-        public void RelationshipPartnerChange(Person person)
+        public void AddRelationshipPartner(Person partner)
         {
-            relationshipPartner = person;
+            relationshipPartner = partner;
+            relationshipProgress = 0;
 
-            relationshipElapsedTicks = 0;
+            partner.relationshipPartner = this;
+            partner.relationshipProgress = 0;
+        }
+
+        public void RemoveRelationshipParter()
+        {
+            relationshipPartner.relationshipPartner = null;
+            relationshipPartner.relationshipProgress = 0;
+
+            relationshipPartner = null;
+            relationshipProgress = 0;
         }
 
         public int CalculateHappniess(Modifiers modifiers)
@@ -235,7 +272,7 @@ namespace Game
         public List<Person> workers;
 
         [NonSerialized]
-        public Workplace workplace;
+        public Workplace workplace = null;
 
         public void AddWorker(Person person)
         {

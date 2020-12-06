@@ -61,6 +61,11 @@ namespace Game
                 {
                     family.Add(person);
 
+                    if(person.relationshipPartner != null && person.relationshipPartner.residence == person.residence)
+                    {
+                        family.Add(person.relationshipPartner);
+                    }
+
                     for(int childIndex = 0; childIndex < person.children.Count; ++childIndex)
                     {
                         Person child = person.children[childIndex];

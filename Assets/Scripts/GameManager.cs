@@ -124,15 +124,35 @@ namespace Game
             onDestroyEvent?.Invoke(entity);
         }
 
+        //Time
+        public void OnUpdateTick()
+        {
+            UpdatePeople();
+        }
+
+        public void OnUpdateMonth()
+        {
+        }
+
+        public void OnUpdateTrimester()
+        {
+        }
+
+        public void OnUpdateYear()
+        {
+            if(year == 4)
+            {
+                //TODO: End game
+            }
+        }
+
         //Structure Management
 
         //People Management
         public void UpdatePeople()
         {
-            for(int i = 0; i < city.people.Count; ++i)
+            foreach(Person person in city.people.Values)
             {
-                Person person = city.people[i];
-
                 if(!person.isSick && Random.Range(0f, 100f) <= sicknessChance[(int)person.GetSocialClass()])
                 {
                     person.ChangeSicknessState(true);
@@ -151,6 +171,11 @@ namespace Game
                         List<Person> family = new List<Person>();
 
                         family.Add(person);
+
+                        if(person.relationshipPartner != null && person.relationshipPartner.residence == person.residence)
+                        {
+                            family.Add(person.relationshipPartner);
+                        }
 
                         for(int childIndex = 0; childIndex < person.children.Count; ++childIndex)
                         {
@@ -191,7 +216,7 @@ namespace Game
                     {
                         if(person.job == null || (int)person.job.educationRequired < (int)person.education || person.isLookingForBetterJob)
                         {
-                            for(int currentEducation = (int)person.education; currentEducation >= 0; --i)
+                            for(int currentEducation = (int)person.education; currentEducation >= 0; --currentEducation)
                             {
                                 HashSet<Job> jobCollection = city.availableJobs[currentEducation];
 
@@ -209,29 +234,9 @@ namespace Game
                     else
                     {
                         //TODO: try to find hospital
+
                     }
                 }
-            }
-        }
-
-        //Time
-        public void OnUpdateTick()
-        {
-        }
-
-        public void OnUpdateMonth()
-        {
-        }
-
-        public void OnUpdateTrimester()
-        {
-        }
-
-        public void OnUpdateYear()
-        {
-            if(year == 4)
-            {
-                //TODO: End game
             }
         }
     }

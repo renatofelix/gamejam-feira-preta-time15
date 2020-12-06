@@ -21,10 +21,10 @@ namespace Game
         public bool canBeDestroyed;
 
         [NonSerialized]
-        public int revenue;
+        public int revenue = 0;
 
         [NonSerialized]
-        public City city;
+        public City city = null;
 
         [NonSerialized]
         public Vector2Int position;
