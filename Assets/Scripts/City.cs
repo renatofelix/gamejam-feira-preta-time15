@@ -92,7 +92,7 @@ namespace Game
         {
             Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), rotation, cityTransform);
 
-            grid[gridHeight - position.y, position.x].structure = structure;
+            grid[(gridHeight - 1) - position.y, position.x].structure = structure;
 
             structure.position = position;
 
@@ -108,7 +108,7 @@ namespace Game
         {
             if(structure.canBeDestroyed)
             {
-                grid[gridHeight - structure.position.y, structure.position.x].structure = null;
+                grid[(gridHeight - 1) - structure.position.y, structure.position.x].structure = null;
 
                 OnRemoveStructure?.Invoke(structure);
 
@@ -123,7 +123,7 @@ namespace Game
 
         public Structure GetStructure(Vector2Int position)
         {
-            return grid[gridHeight - position.y, position.x].structure;
+            return grid[(gridHeight - 1) - position.y, position.x].structure;
         }
 
         //People
