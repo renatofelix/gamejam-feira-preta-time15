@@ -25,13 +25,6 @@ namespace Game
             GenerateMap();
         }
 
-        private void Update()
-        {
-            GenerateMap();
-        }
-
-
-
         public void GenerateMap()
         {
             int a = 0;
@@ -51,13 +44,17 @@ namespace Game
 
             for (int i = 0; i < size.y; i++)
             {
-                for (int y = 0; y < size.x; y++)
+                for (int j = 0; j < size.x; j++)
                 {
-                    GameObject obj =  GameObject.Instantiate(cityBuilds.builds[positionBuildText[a]], new Vector3(i * 2, 0, y * 2), Quaternion.identity, mapHolder);
-                    city.AddStructure(obj.GetComponent<Structure>(), new Vector2Int(i, y));
+                    city.AddStructure(cityBuilds.builds[0].GetComponent<Structure>(), new Vector2Int(j, i));
                     a++;
                 }
             }
+
+        }
+
+        public void RotateBuild()
+        {
 
         }
 
