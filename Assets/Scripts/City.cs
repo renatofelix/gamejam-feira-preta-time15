@@ -11,14 +11,79 @@ namespace Game
         public int gridWidth;
         public int gridHeight;
 
-        public Dictionary<int, Person> people;
+        [NonSerialized]
+        public List<Structure> structures = new List<Structure>();
+
+        [NonSerialized]
+        public HashSet<Person> people = new HashSet<Person>();
 
         //General
-        public int nextId = 0;
+        [NonSerialized]
+        public HashSet<Job>[] availableJobs;
+
+        [NonSerialized]
+        public HashSet<Residence>[] availableResidences;
+
+        [NonSerialized]
+        public HashSet<Structure>[] forSaleStructures;
+
+        [NonSerialized]
+        public HashSet<Hospital> availableHospitals;
+
+        //Events
+        public Action<Structure> OnAddStructure;
+        public Action<Structure> OnRemoveStructure;
 
         public void Awake()
         {
             grid = new Structure[gridWidth, gridHeight];
+
+            availableJobs = new HashSet<Job>[(int)Education.Count];
+
+            for(int i = 0; i < (int)Education.Count; ++i)
+            {
+                availableJobs[i] = new HashSet<Job>();
+            }
+
+            availableResidences = new HashSet<Residence>[(int)SocialClass.Count];
+
+            for(int i = 0; i < (int)Education.Count; ++i)
+            {
+                availableResidences[i] = new HashSet<Residence>();
+            }
+
+            forSaleStructures = new HashSet<Structure>[(int)SocialClass.Count];
+
+            for(int i = 0; i < (int)Education.Count; ++i)
+            {
+                forSaleStructures[i] = new HashSet<Structure>();
+            }
+
+            availableHospitals = new HashSet<Hospital>();
+        }
+
+        //Structures
+        public void AddStructure(Structure structurePrefab, Vector2Int position)
+        {
+            Structure structure = Instantiate(structurePrefab, new Vector3(position.x, 0, position.y), Quaternion.identity);
+
+            grid[position.x, position.y] = structure;
+
+            structure.position = position;
+
+            OnAddStructure?.Invoke(structure);
+        }
+
+        public void RemoveStructure(Structure structure)
+        {
+            if(structure.canBeDestroyed)
+            {
+                grid[structure.position.x, structure.position.y] = null;
+
+                OnRemoveStructure?.Invoke(structure);
+
+                Destroy(structure.gameObject);
+            }
         }
 
         //People
@@ -28,9 +93,9 @@ namespace Game
 
         public void RemovePerson(Person person)
         {
+            if(person.canDie)
+            {
+            }
         }
-
-        //Structures
-        
     }
 }

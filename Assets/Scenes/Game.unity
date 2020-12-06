@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 772474870}
   - component: {fileID: 772474869}
   - component: {fileID: 772474868}
+  - component: {fileID: 772474872}
   - component: {fileID: 772474867}
   - component: {fileID: 772474866}
   m_Layer: 0
@@ -446,7 +447,7 @@ MonoBehaviour:
   key: 282
   maxEntries: 150
   logLevel: 0
-  logOnUnity: 0
+  logOnUnity: 1
 --- !u!114 &772474870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,6 +460,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc02fe241c0c1ac40994121822020bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 0
+  tick: 0
+  month: 0
+  trimester: 0
+  year: 2020
+  ticksPerMonth: 4
+  trimesterDuration: 120
+  budget: 0
+  politicalPoints: 0
+  findRelationshipChance:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  procriateChance:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  sicknessChance:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!4 &772474871
 Transform:
   m_ObjectHideFlags: 0
@@ -472,6 +500,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &772474872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772474865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9986333e756dfe47ad34e0430d7407d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridWidth: 0
+  gridHeight: 0
+  structures: []
+--- !u!1 &903369160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903369162}
+  - component: {fileID: 903369161}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &903369161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903369160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d28656963aa57346a9735dffceef570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: 
+  description: 
+  cost: 0
+  upkeepCost: 0
+  revenue: 0
+  ownership: 0
+  canBeDestroyed: 0
+  targetConsumers: 0
+  effectiveArea: 0
+  work: []
+--- !u!4 &903369162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903369160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1517780001
 GameObject:
