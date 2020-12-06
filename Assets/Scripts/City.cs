@@ -12,6 +12,7 @@ namespace Game
         public int gridHeight;
 
         public float positionMultiplier = 2.0f;
+        public Transform cityTransform;
 
         [NonSerialized]
         public List<Structure> structures = new List<Structure>();
@@ -75,9 +76,9 @@ namespace Game
         }
 
         //Structures
-        public void AddStructure(Structure structurePrefab, Vector2Int position, Transform parent = null)
+        public void AddStructure(Structure structurePrefab, Vector2Int position)
         {
-            Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), Quaternion.identity, parent);
+            Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), Quaternion.identity, cityTransform);
 
             grid[position.x, position.y] = structure;
 
