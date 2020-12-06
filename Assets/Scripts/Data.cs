@@ -76,7 +76,6 @@ namespace Game
     [Serializable]
     public class Person
     {
-        public int id;
         public string name;
         public int age;
         public LifeStage lifeStage;
@@ -86,6 +85,9 @@ namespace Game
         public SocialClass socialClass;
 
         public bool canDie;
+
+        [NonSerialized]
+        public City city = null;
 
         [NonSerialized]
         public List<Person> parents = new List<Person>();
@@ -124,7 +126,7 @@ namespace Game
         public bool isSick = false;
 
         [NonSerialized]
-        public bool isHosptilized = false;
+        public bool isHospitalized = false;
 
         [NonSerialized]
         public int sicknessProgress = 0;
@@ -138,6 +140,8 @@ namespace Game
 
         public void Death()
         {
+            city.people.Remove(this);
+
             if(job != null)
             {
                 job.workplace.Fire(this);
@@ -150,7 +154,15 @@ namespace Game
 
             RemoveRelationshipParter();
 
-            foreach(
+            foreach(Person parent in parents)
+            {
+                parent.children.Remove(this);
+            }
+
+            foreach(Person child in children)
+            {
+                child.parents.Remove(this);
+            }
         }
 
         public void ChangeEducation(Education newEducation)

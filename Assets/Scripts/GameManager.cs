@@ -151,7 +151,7 @@ namespace Game
         //People Management
         public void UpdatePeople()
         {
-            foreach(Person person in city.people.Values)
+            foreach(Person person in city.people)
             {
                 if(!person.isSick && Random.Range(0f, 100f) <= sicknessChance[(int)person.GetSocialClass()])
                 {

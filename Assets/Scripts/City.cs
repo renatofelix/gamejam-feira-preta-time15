@@ -11,13 +11,13 @@ namespace Game
         public int gridWidth;
         public int gridHeight;
 
-        public List<Structure> structures;
-        public Dictionary<int, Person> people;
+        [NonSerialized]
+        public List<Structure> structures = new List<Structure>();
+
+        [NonSerialized]
+        public HashSet<Person> people = new HashSet<Person>();
 
         //General
-        [NonSerialized]
-        public int nextPersonId = 0;
-
         [NonSerialized]
         public HashSet<Job>[] availableJobs;
 
