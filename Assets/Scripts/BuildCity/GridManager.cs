@@ -177,24 +177,43 @@ namespace Game
             //currentMouseLocation.text = " X [" + CameraInteraction.GridMousePostion.x + "] Y [" + CameraInteraction.GridMousePostion.y + "]";
         }
 
+        public void BuildModeOff()
+        {
+            buildingMode = false;
+            OnBuildModeOff?.Invoke(true);
+            Destroy(CurrentObjectSelect);
+        }
+
+        public void SelectModeOff()
+        {
+            selectMode = false;
+            OnDeselectTile?.Invoke(currentTile);
+            currentTile = null;
+        }
+
+        public void SaleModeOff()
+        {
+            saleMode = false;
+        }
+
         private void GameModeManager()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && buildingMode)
-            {
-                buildingMode = false;
-                OnBuildModeOff?.Invoke(true);
-                Destroy(CurrentObjectSelect);
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape) && saleMode)
-            {
-                saleMode = false;
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape) && selectMode)
-            {
-                selectMode = false;
-                OnDeselectTile?.Invoke(currentTile);
-                currentTile = null;
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape) && buildingMode)
+            //{
+            //    buildingMode = false;
+            //    OnBuildModeOff?.Invoke(true);
+            //    Destroy(CurrentObjectSelect);
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Escape) && saleMode)
+            //{
+            //    saleMode = false;
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Escape) && selectMode)
+            //{
+            //    selectMode = false;
+            //    OnDeselectTile?.Invoke(currentTile);
+            //    currentTile = null;
+            //}
         }
 
         public void DeleteObjectButton()
