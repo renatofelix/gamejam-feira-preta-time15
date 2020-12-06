@@ -4,6 +4,14 @@ using UnityEngine;
 
 namespace Game
 {
+    [Serializable]
+    public struct Tile
+    {
+        public Structure structure;
+        public int policeCoverage;
+        public int emergencyCoverage;
+    }
+
     public class Modifier
     {
         public string name;
@@ -189,6 +197,7 @@ namespace Game
         public void Graduate()
         {
             education = education + 1;
+            happiness += 5;
         }
 
         public void ChangeSocialClass(SocialClass newSocialClass)
