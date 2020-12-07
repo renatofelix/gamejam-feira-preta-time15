@@ -21,9 +21,9 @@ namespace Game
         [NonSerialized]
         public HashSet<Person> patients = new HashSet<Person>();
 
-        public override void Awake()
+        public override void Start()
         {
-            base.Awake();
+            base.Start();
 
             city.availableHospitals.Add(this);
         }

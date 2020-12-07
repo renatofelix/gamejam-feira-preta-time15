@@ -101,6 +101,7 @@ namespace Game
         public void AddStructure(Structure structurePrefab, Vector2Int position, Quaternion rotation)
         {
             Structure structure = Instantiate(structurePrefab, new Vector3(position.x*positionMultiplier, 0, position.y*positionMultiplier), rotation, cityTransform);
+            structure.city = this;
 
             grid[(gridHeight - 1) - position.y, position.x].structure = structure;
 

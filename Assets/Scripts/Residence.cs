@@ -14,11 +14,11 @@ namespace Game
         [NonSerialized]
         public int bonusHappiness = 0;
 
-        public override void Awake()
+        public override void Start()
         {
-            city.availableResidences[(int)socialClass].Add(this);
+            base.Start();
 
-            base.Awake();
+            city.availableResidences[(int)socialClass].Add(this);
         }
 
         public override void Destroy()

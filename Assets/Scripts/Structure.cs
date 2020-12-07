@@ -61,7 +61,7 @@ namespace Game
         [NonSerialized]
         public Person owner = null;
 
-        public virtual void Awake()
+        public virtual void Start()
         {
             ChangeInfluence(influenceAmount, influenceRange);
         }

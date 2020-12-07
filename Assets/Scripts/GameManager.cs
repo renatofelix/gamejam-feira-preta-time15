@@ -66,6 +66,10 @@ namespace Game
         public float[] findHospitalChance = new float[(int)SocialClass.Count];
         public float[] arrestChance = new float[(int)SocialClass.Count];
 
+        [Header("Table Set 3")]
+        public int[] baseTaxAmount = new int[(int)SocialClass.Count];
+        public float[] taxMultiplier = new float[(int)Meter.Count];
+
         [NonSerialized]
         public City city;
 
@@ -179,7 +183,7 @@ namespace Game
                 //Tax
                 if(Random.Range(0f, 100f) > dodgeTaxChance[(int)person.socialClass])
                 {
-                    //TODO: tax
+                    money += (int)(baseTaxAmount[(int)person.socialClass]*taxMultiplier[(int)tax[(int)person.socialClass]]);
                 }
 
                 //Relationships and procriation
@@ -239,6 +243,10 @@ namespace Game
         //Structure Management
         public void UpdateStructures()
         {
+            foreach(Structure structure in city.structures)
+            {
+                structure.Tick();
+            }
         }
 
         //People Management
