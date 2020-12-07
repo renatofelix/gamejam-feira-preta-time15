@@ -69,7 +69,7 @@ namespace Game
 
         private void OnEnable()
         {
-
+            
             city.OnAddStructure += StructureBuilded;
         }
 
@@ -99,6 +99,8 @@ namespace Game
         {
             city.RemoveStructure(e);
         }
+
+        
 
         public int GetRows()
         {
