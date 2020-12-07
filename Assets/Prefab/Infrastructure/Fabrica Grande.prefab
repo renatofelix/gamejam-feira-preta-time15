@@ -106,10 +106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d28656963aa57346a9735dffceef570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Fabrica Grande
   description: 
-  cost: 0
-  upkeepCost: 0
+  cost: 1000
+  upkeepCost: 150
   budget: 0
   ownership: 0
   canBeDestroyed: 0
@@ -123,5 +123,10 @@ MonoBehaviour:
   - 1
   - 1.2
   - 2
-  work: []
+  work:
+  - name: Engenheiro
+    educationRequired: 3
+    socialClassProvided: 3
+    quality: 0
+    maxWorkers: 50
   budgetEffectOnEfficiency: 000000000100000002000000

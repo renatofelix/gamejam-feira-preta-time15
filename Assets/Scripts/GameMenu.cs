@@ -173,6 +173,16 @@ namespace Game
 
         public void Start()
         {
+            GridManager.Instance.OnSelectTile = (Structure structure) =>
+            {
+                ShowStructureInfo(structure);
+            };
+
+            GridManager.Instance.OnDeselectTile = (Structure structure) =>
+            {
+                HideInfo();
+            };
+
             foreach(Structure structure in structurePrefabs)
             {
                 UIStructureButton button = Instantiate(structureButtonPrefab, structureSection, false);
@@ -205,16 +215,6 @@ namespace Game
                     }
                 });
             }
-
-            GridManager._instance.OnSelectTile = (Structure structure) =>
-            {
-                ShowStructureInfo(structure);
-            };
-
-            GridManager._instance.OnDeselectTile = (Structure structure) =>
-            {
-                HideInfo();
-            };
         }
 
         public void Update()
@@ -230,6 +230,8 @@ namespace Game
                 HideTooltip();
                 HideInfo();
                 HideTaxPanel();
+
+                GridManager._instance.BuildModeOff();
             }
         }
         

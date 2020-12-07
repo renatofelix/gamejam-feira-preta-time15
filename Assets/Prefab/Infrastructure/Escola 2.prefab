@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &522365731488801500
+--- !u!1 &1938539096402316075
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 897342714952710246}
-  - component: {fileID: 4313282843129509827}
-  - component: {fileID: 2035394679387030281}
-  - component: {fileID: 1092569346943170136}
-  - component: {fileID: -3550407991690826309}
+  - component: {fileID: 1273607908259795345}
+  - component: {fileID: 2739059594100416052}
+  - component: {fileID: 137341619428649726}
+  - component: {fileID: 6236628024250877786}
+  - component: {fileID: -8871539595862095852}
   m_Layer: 0
-  m_Name: Policia
+  m_Name: Escola 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &897342714952710246
+--- !u!4 &1273607908259795345
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522365731488801500}
+  m_GameObject: {fileID: 1938539096402316075}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,21 +34,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4313282843129509827
+--- !u!33 &2739059594100416052
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522365731488801500}
-  m_Mesh: {fileID: 5644659179308935152, guid: 2ea7525264764de4c9013f82bb869e2b, type: 3}
---- !u!23 &2035394679387030281
+  m_GameObject: {fileID: 1938539096402316075}
+  m_Mesh: {fileID: -5396430171644632406, guid: c91144fe17a91af479bf7ea36e501916, type: 3}
+--- !u!23 &137341619428649726
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522365731488801500}
+  m_GameObject: {fileID: 1938539096402316075}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2077597597618540663, guid: 2ea7525264764de4c9013f82bb869e2b, type: 3}
+  - {fileID: 2077597597618540663, guid: c91144fe17a91af479bf7ea36e501916, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,35 +81,35 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1092569346943170136
+--- !u!65 &6236628024250877786
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522365731488801500}
+  m_GameObject: {fileID: 1938539096402316075}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.8, y: 0.3, z: 1.8}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3550407991690826309
+--- !u!114 &-8871539595862095852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522365731488801500}
+  m_GameObject: {fileID: 1938539096402316075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f54e6babccf7e1b48a6c844638b81b26, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d2e5a6ec56716a4488de3dfca67e7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: "Escola Secund\xE1ria"
   description: 
-  cost: 0
-  upkeepCost: 0
+  cost: 3000
+  upkeepCost: 200
   budget: 0
   ownership: 0
   canBeDestroyed: 0
@@ -123,5 +123,13 @@ MonoBehaviour:
   - 1
   - 1.2
   - 2
-  work: []
+  work:
+  - name: Professor
+    educationRequired: 3
+    socialClassProvided: 3
+    quality: 0
+    maxWorkers: 15
   budgetEffectOnEfficiency: 000000000100000002000000
+  maxStudents: 60
+  educationRequired: 1
+  temporaryHappinessBonusBasedOnEducation: 0a0000000a0000000a0000000a000000

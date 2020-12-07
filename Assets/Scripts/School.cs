@@ -6,6 +6,7 @@ namespace Game
 {
     public class School : Workplace
     {
+        [Header("Shool")]
         public int maxStudents;
 
         public Education educationRequired;

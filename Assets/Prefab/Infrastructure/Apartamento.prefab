@@ -106,21 +106,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2043da5395c9e1449b72dcc28e6510a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Apartamento
   description: 
-  cost: 0
-  upkeepCost: 0
+  cost: 1200
+  upkeepCost: 50
   budget: 0
   ownership: 0
   canBeDestroyed: 0
   influence: 0
   influenceAmount: 0
   influenceRange: 0
-  socialClass: 0
+  socialClass: 4
   socialClassValueTable:
   - 0.3
   - 0.7
   - 1
   - 1.2
   - 2
-  maxResidents: 0
+  maxResidents: 30

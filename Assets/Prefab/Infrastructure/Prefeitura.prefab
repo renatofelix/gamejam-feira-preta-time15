@@ -123,5 +123,10 @@ MonoBehaviour:
   - 1
   - 1.2
   - 2
-  work: []
+  work:
+  - name: "Funcionario P\xFAblico"
+    educationRequired: 2
+    socialClassProvided: 4
+    quality: 0
+    maxWorkers: 100
   budgetEffectOnEfficiency: 000000000100000002000000
