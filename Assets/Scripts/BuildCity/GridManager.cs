@@ -16,6 +16,7 @@ namespace Game
         //[SerializeField] private TextMeshProUGUI currentMouseLocation;
 
         [SerializeField] private GameObject GhostReference;
+        [SerializeField] private GameObject GhostObject;
         [SerializeField] private GameObject CurrentObjectSelect;
         private Vector3 ghostRotation;
 
@@ -65,6 +66,12 @@ namespace Game
                 }
                 return _instance;
             }
+        }
+
+        private void Awake()
+        {
+            rows = city.gridHeight;
+            cols = city.gridWidth;
         }
 
         private void OnEnable()
@@ -134,7 +141,12 @@ namespace Game
         {
             buildingMode = true;
             GhostReference = structureToBuild.gameObject;
-            CurrentObjectSelect = GameObject.Instantiate(GhostReference);
+            MeshFilter mesh;
+            mesh = GhostReference.GetComponent<MeshFilter>();
+            CurrentObjectSelect = GameObject.Instantiate(GhostObject);
+            CurrentObjectSelect.GetComponent<MeshFilter>().sharedMesh = mesh.sharedMesh;
+            //
+            //meshGhost = mesh;
 
         }
 
