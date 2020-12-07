@@ -21,7 +21,7 @@ namespace Game
         {
             if(GameManager.instance.money >= structure.cost)
             {
-                //TODO: Start builder mode
+                GridManager._instance.SetStructureToBuild(structure);
             }
         }
     }

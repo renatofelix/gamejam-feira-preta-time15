@@ -21,6 +21,8 @@ namespace Game
     {
         [Header("Structure")]
         public string displayName;
+
+        [TextArea()]
         public string description;
         public int cost;
         public int upkeepCost;

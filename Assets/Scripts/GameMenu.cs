@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
+    [DefaultExecutionOrder(100)]
     public class GameMenu : MonoBehaviour
     {
         public static GameMenu instance;
@@ -172,6 +173,16 @@ namespace Game
 
         public void Start()
         {
+            GridManager.Instance.OnSelectTile = (Structure structure) =>
+            {
+                ShowStructureInfo(structure);
+            };
+
+            GridManager.Instance.OnDeselectTile = (Structure structure) =>
+            {
+                HideInfo();
+            };
+
             foreach(Structure structure in structurePrefabs)
             {
                 UIStructureButton button = Instantiate(structureButtonPrefab, structureSection, false);
@@ -219,6 +230,8 @@ namespace Game
                 HideTooltip();
                 HideInfo();
                 HideTaxPanel();
+
+                GridManager._instance.BuildModeOff();
             }
         }
         
@@ -450,8 +463,6 @@ namespace Game
         public void ShowTaxPanel()
         {
             taxPanel.gameObject.SetActive(true);
-
-            
         }
 
         public void HideTaxPanel()
@@ -476,6 +487,7 @@ namespace Game
 
         public void OnClickSellOrDestroy()
         {
+            GridManager._instance.ActivateModeSale();
         }
 
         public void OnClickTax()
