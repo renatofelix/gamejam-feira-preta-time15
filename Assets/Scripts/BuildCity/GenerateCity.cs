@@ -46,7 +46,7 @@ namespace Game
             {
                 for (int j = 0; j < size.x; j++)
                 {
-                    city.AddStructure(cityBuilds.builds[0].GetComponent<Structure>(), new Vector2Int(j, i));
+                    city.AddStructure(cityBuilds.builds[positionBuildText[a]].GetComponent<Structure>(), new Vector2Int(j, i));
                     a++;
                 }
             }
