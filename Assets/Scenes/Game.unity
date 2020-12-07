@@ -5604,7 +5604,7 @@ MonoBehaviour:
   year: 2020
   ticksPerMonth: 2
   trimesterDuration: 120
-  money: 0
+  money: 50000
   politicalPoints: 0
   tax: 0000000000000000000000000100000002000000
   trimestralFederalGrant: 1000

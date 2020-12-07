@@ -49,9 +49,9 @@ namespace Game
         [NonSerialized]
         public int currentWorkers = 0;
 
-        public override void Awake()
+        public override void Start()
         {
-            base.Awake();
+            base.Start();
 
             for(int i = 0; i < work.Count; ++i)
             {

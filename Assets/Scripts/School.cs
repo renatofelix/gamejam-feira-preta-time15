@@ -22,9 +22,9 @@ namespace Game
         [NonSerialized]
         public HashSet<Person> students = new HashSet<Person>();
 
-        public override void Awake()
+        public override void Start()
         {
-            base.Awake();
+            base.Start();
 
             city.availableSchools[(int)educationRequired].Add(this);
         }
