@@ -8,6 +8,9 @@ public class CameraBoom : MonoBehaviour
     private float movementSpeed = 10;
 
     [SerializeField]
+    private float rotationSpeed = 15;
+
+    [SerializeField]
     private float zoomSpeed = 300;
 
     [SerializeField]
@@ -25,13 +28,22 @@ public class CameraBoom : MonoBehaviour
         Vector3 direction = Vector3.zero;
 
         if (Input.GetMouseButton(Mouse.MIDDLE_BUTTON)) {
-            direction = GetMouseDirection();
+            Vector3 mouseDirection = GetMouseDirection();
+            if (Input.GetKey(KeyCode.LeftShift)) {
+                Rotate(mouseDirection);
+            } else {
+                direction = mouseDirection;
+            }
         } else {
             direction = GetKeyboardDirection();
         }
 
         Move(direction);
         Zoom(Input.GetAxis(Mouse.SCROLL));
+    }
+
+    private void Rotate(Vector3 mouseDirection) {
+        transform.Rotate(Vector3.up * rotationSpeed * (Vector3.Dot(mouseDirection, Vector3.right) - Vector3.Dot(mouseDirection, Vector3.left)) * Time.deltaTime);
     }
 
     private Vector3 GetMouseDirection() {
