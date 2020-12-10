@@ -40,8 +40,6 @@ public class Weather : MonoBehaviour
 
     private Color defaultGrassColor;
 
-    private bool resetGrassColorOnQuit;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +47,6 @@ public class Weather : MonoBehaviour
         lightComponent.color = sunnyLightColor;
         rain.gameObject.SetActive(false);
         defaultGrassColor = grassMaterial.GetColor(UnlitShader.BASE_COLOR);
-        resetGrassColorOnQuit = true;
     }
 
     // Update is called once per frame
@@ -76,7 +73,7 @@ public class Weather : MonoBehaviour
     }
 
     void OnApplicationQuit() {
-        if (resetGrassColorOnQuit) {
+        if (this.isActiveAndEnabled) {
             grassMaterial.SetColor(UnlitShader.BASE_COLOR, defaultGrassColor);
         }
     }
