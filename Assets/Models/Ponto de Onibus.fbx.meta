@@ -10,7 +10,12 @@ ModelImporter:
       74: -1204955409451274825
     second: "Rig - Ponto de \xD4nibus|Rig - Ponto de \xD4nibus.001|Rig - Ponto de
       \xD4nibus|Balan\xE7o (BAK"
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Atlas Lightmap Pack
+    second: {fileID: 2100000, guid: b7d01c1bf11732f48b34ada50894f2fd, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
