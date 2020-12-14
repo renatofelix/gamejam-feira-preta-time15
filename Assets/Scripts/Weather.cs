@@ -1,80 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Weather : MonoBehaviour
 {
     [SerializeField]
-    private Color sunnyLightColor = new Color(0.9622642f, 0.8914236f, 0.753471f, 1);
+    private float sunnyTransitionDelayInSeconds = 5;
 
     [SerializeField]
-    private Color cloudyLightColor = new Color(0.5843138f, 0.3764706f, 0.5764706f, 1);
+    private float cloudyTransitionDelayInSeconds = 5;
 
     [SerializeField]
-    private Color lightningColor = new Color(0.5333304f, 0.6962748f, 0.8018868f, 1);
+    private float lightingStartDelayInSeconds = 4;
 
     [SerializeField]
-    private Color cloudySkyColor = new Color(0.393093f, 0.3831435f, 0.3962264f, 1);
+    private float lightingStopDelayInSeconds = 4;
 
     [SerializeField]
-    private Color darkerGrassColor = new Color(0.4056604f, 0.4056604f, 0.2315326f, 1);
+    private float startDelayInSeconds = 10;
 
     [SerializeField]
-    private Color lighterGrassColor = new Color(0.5878751f, 0.6226414f, 0.2085261f, 1);
+    private float stopDelayInSeconds = 10;
 
-    [SerializeField]
-    private float sunnyWeatherDuration = 10;
+    public Action<float> OnGotCloudy;
 
-    [SerializeField]
-    private ParticleSystem rain;
+    public Action<float> OnGotSunny;
 
-    [SerializeField]
-    private Camera mainCamera;
+    public Action OnStartedRaining;
 
-    [SerializeField]
-    private Material grassMaterial;
+    public Action OnStoppedRaining;
 
-    private Light lightComponent;
+    public Action OnStartedLightning;
 
-    private float elapsedTimeInSeconds;
-
-    private Color defaultGrassColor;
+    public Action OnStoppedLightning;
 
     // Start is called before the first frame update
     void Start()
     {
-        lightComponent = GetComponent<Light>();
-        lightComponent.color = sunnyLightColor;
-        rain.gameObject.SetActive(false);
-        defaultGrassColor = grassMaterial.GetColor(UnlitShader.BASE_COLOR);
+        StartCoroutine(NotifyWeatherChanges());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        elapsedTimeInSeconds += Time.deltaTime;
-        float lerpFactor = (elapsedTimeInSeconds / sunnyWeatherDuration) * Time.deltaTime;
-        lightComponent.color = Color.Lerp(lightComponent.color, cloudyLightColor, lerpFactor);
-        mainCamera.backgroundColor = Color.Lerp(mainCamera.backgroundColor, cloudySkyColor, lerpFactor);
-        grassMaterial.SetColor(UnlitShader.BASE_COLOR, Color.Lerp(grassMaterial.GetColor(UnlitShader.BASE_COLOR), darkerGrassColor, lerpFactor));
-
-        if (elapsedTimeInSeconds > (0.8 * sunnyWeatherDuration)) {
-            Flash();
-        }
+    private IEnumerator NotifyWeatherChanges() {
+        yield return new WaitForSeconds(startDelayInSeconds);
+        OnGotCloudy(cloudyTransitionDelayInSeconds);
+        yield return new WaitForSeconds(lightingStartDelayInSeconds);
+        OnStartedLightning();
+        yield return new WaitForSeconds(lightingStopDelayInSeconds);
+        OnStoppedLightning();
+        OnStartedRaining();
+        yield return new WaitForSeconds(stopDelayInSeconds);
+        OnStoppedRaining();
+        OnGotSunny(sunnyTransitionDelayInSeconds);
     }
 
-    private void Flash() {
-        if (Random.Range(0, 100) < 1) {
-            lightComponent.color = lightningColor;
-        } else {
-            lightComponent.color = cloudyLightColor;
-            rain.gameObject.SetActive(true);
-        }
-    }
-
-    void OnApplicationQuit() {
-        if (this.isActiveAndEnabled) {
-            grassMaterial.SetColor(UnlitShader.BASE_COLOR, defaultGrassColor);
-        }
-    }
 }
