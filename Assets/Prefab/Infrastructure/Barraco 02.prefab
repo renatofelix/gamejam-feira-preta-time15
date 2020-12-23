@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1177349471976107060}
   - component: {fileID: -180515514329029667}
   m_Layer: 0
-  m_Name: Casa de Favela 02
+  m_Name: Barraco 02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189925670308901007}
-  m_Mesh: {fileID: -7820235023743630505, guid: b883a3016ab861347a887f7bbe42a95a, type: 3}
+  m_Mesh: {fileID: -2442225536969591367, guid: b883a3016ab861347a887f7bbe42a95a, type: 3}
 --- !u!23 &1847104854423687514
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -60,7 +60,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2077597597618540663, guid: b883a3016ab861347a887f7bbe42a95a, type: 3}
+  - {fileID: 2100000, guid: b7d01c1bf11732f48b34ada50894f2fd, type: 2}
+  - {fileID: 2100000, guid: b7d01c1bf11732f48b34ada50894f2fd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
